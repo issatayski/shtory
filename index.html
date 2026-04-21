@@ -113,20 +113,68 @@ h1,h2,h3{font-family:Montserrat}
 <!-- QUIZ -->
 <section id="quiz" class="quiz">
 <div class="container">
-<h2>Какой интерьер вам ближе?</h2>
+<h2>Подберите стиль вашего интерьера</h2>
+
+<div class="quiz-step active" data-step="1">
+<p>Какой стиль вам ближе?</p>
 <div class="quiz-grid">
-<div class="quiz-item" onclick="selectQuiz('Минимализм')">Минимализм</div>
-<div class="quiz-item" onclick="selectQuiz('Уютный дом')">Уютный дом</div>
-<div class="quiz-item" onclick="selectQuiz('Премиум стиль')">Премиум стиль</div>
-<div class="quiz-item" onclick="selectQuiz('Натуральные оттенки')">Натуральные оттенки</div>
+<div class="quiz-item" onclick="nextStep('Минимализм')">Минимализм</div>
+<div class="quiz-item" onclick="nextStep('Уютный дом')">Уютный дом</div>
+<div class="quiz-item" onclick="nextStep('Премиум стиль')">Премиум стиль</div>
+<div class="quiz-item" onclick="nextStep('Натуральный стиль')">Натуральный стиль</div>
 </div>
-<br>
+</div>
+
+<div class="quiz-step" data-step="2">
+<p>Где будут шторы?</p>
+<div class="quiz-grid">
+<div class="quiz-item" onclick="nextStep('Квартира')">Квартира</div>
+<div class="quiz-item" onclick="nextStep('Дом')">Дом</div>
+<div class="quiz-item" onclick="nextStep('Офис')">Офис</div>
+</div>
+</div>
+
+<div class="quiz-step" data-step="3">
+<p>Тип изделия</p>
+<div class="quiz-grid">
+<div class="quiz-item" onclick="nextStep('Ролл-шторы')">Ролл-шторы</div>
+<div class="quiz-item" onclick="nextStep('Жалюзи')">Жалюзи</div>
+</div>
+</div>
+
+<div class="quiz-step" data-step="4">
+<p>Оставьте ваш телефон</p>
 <input id="phone" placeholder="Ваш телефон">
-<br>
-<br>
+<br><br>
 <button class="btn btn-accent" onclick="sendQuiz()">Получить подбор</button>
 </div>
+</div>
 </section>
+
+<script>
+let quizData = {};
+let currentStep = 1;
+
+function nextStep(value){
+quizData['step'+currentStep]=value;
+
+document.querySelector('.quiz-step[data-step="'+currentStep+'"]').classList.remove('active');
+currentStep++;
+let next=document.querySelector('.quiz-step[data-step="'+currentStep+'"]').classList.add('active');
+}
+
+function sendQuiz(){
+quizData.phone=document.getElementById('phone').value;
+
+let text = `Подбор дизайна:%0A`+
+`Стиль: ${quizData.step1}%0A`+
+`Помещение: ${quizData.step2}%0A`+
+`Тип: ${quizData.step3}%0A`+
+`Телефон: ${quizData.phone}`;
+
+window.open(`https://wa.me/77000000000?text=${text}`,'_blank');
+}
+</script>
 
 <!-- CATALOG -->
 <section class="catalog container" data-aos="fade-up">
