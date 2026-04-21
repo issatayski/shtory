@@ -41,7 +41,20 @@ h1,h2,h3{font-family:Montserrat}
 .reviews{margin-top:60px}
 .review-card{background:#fff;padding:20px;border-radius:16px;box-shadow:0 5px 15px rgba(0,0,0,.08)}
 
-.sticky{position:fixed;bottom:0;width:100%;display:flex}
+.sticky{position:fixed;bottom:0;width:100%;display:flex;z-index:999}
+.sticky a{flex:1;text-align:center;padding:15px;color:#fff}
+.call{background:#1E1E1E}
+.wa{background:#0DB14B}
+
+/* чтобы кнопки не перекрывали контент */
+body{padding-bottom:70px}
+
+/* ДЕСКТОП — кнопки сбоку */
+@media(min-width:1024px){
+  body{padding-bottom:0}
+  .sticky{top:50%;right:15px;bottom:auto;width:auto;flex-direction:column;transform:translateY(-50%)}
+  .sticky a{width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:5px 0;padding:0}
+}
 .sticky a{flex:1;text-align:center;padding:15px;color:#fff}
 .call{background:#1E1E1E}
 .wa{background:#0DB14B}
