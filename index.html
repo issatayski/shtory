@@ -3,239 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ролл-шторы</title>
+<title>Жалюзи и ролл-шторы</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <style>
-body{margin:0;font-family:Arial}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter;background:#fff;color:#1E1E1E;padding-bottom:80px}
+h1,h2,h3{font-family:Montserrat}
+.container{max-width:1200px;margin:auto;padding:20px}
+
+.btn{padding:14px 26px;border-radius:30px;text-decoration:none;font-weight:600;display:inline-block;transition:.3s}
+.btn-primary{background:#1E1E1E;color:#fff}
+.btn-accent{background:#0DB14B;color:#fff}
+.btn:hover{transform:scale(1.05);opacity:.9}
 
 /* HERO */
-.hero{
-  padding:70px 20px;
-  text-align:center;
-  background:#f5f5f5;
-}
+.hero{background:url('https://images.unsplash.com/photo-1505691938895-1758d7feb511') center/cover no-repeat;min-height:100vh;display:flex;align-items:center;color:#fff;position:relative}
+.hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.hero-content{position:relative;z-index:2;max-width:650px}
+.hero h1{font-size:52px;margin-bottom:15px}
+.hero p{font-size:18px;margin-bottom:20px;opacity:.9}
+.utp{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:25px}
+.utp span{background:rgba(255,255,255,.15);padding:6px 12px;border-radius:20px}
 
-.btn{
-  background:#0DB14B;
-  color:#fff;
-  padding:12px 20px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-}
+/* QUIZ (EMOTIONAL) */
+.quiz{background:#F7F7F7;padding:60px 20px}
+.quiz h2{text-align:center;margin-bottom:25px}
+.quiz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+.quiz-item{background:#fff;border-radius:18px;padding:25px;text-align:center;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.05);transition:.3s}
+.quiz-item:hover{transform:translateY(-5px)}
+.quiz input{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;margin-top:10px}
 
-/* QUIZ */
-#quizModal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  justify-content:center;
-  align-items:center;
-  z-index:99999;
-}
-
-.quiz-box{
-  background:#fff;
-  width:90%;
-  max-width:420px;
-  padding:20px;
-  border-radius:14px;
-}
-
-.quiz-step{display:none}
-.quiz-step.active{display:block}
-
-.quiz-box button{
-  width:100%;
-  margin-top:10px;
-  padding:12px;
-  background:#0DB14B;
-  color:#fff;
-  border:none;
-  border-radius:8px;
-}
-
-.quiz-actions{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
-}
-
-.cancel{background:#999 !important}
+/* CATALOG */
+.catalog .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+.card{position:relative;border-radius:18px;overflow:hidden}
+.card img{width:100%;height:340px;object-fit:cover;transition:.5s}
+.card:hover img{transform:scale(1.08)}
+.card-overlay{position:absolute;bottom:0;width:100%;padding:18px;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff}
 
 /* GALLERY */
-.gallery{
-  padding:60px 20px;
+.gallery{column-count:3;column-gap:15px}
+.gallery img{width:100%;margin-bottom:15px;border-radius:14px}
+
+/* ADVANTAGES */
+.advantages{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center}
+.adv{background:#fff;padding:25px;border-radius:18px;box-shadow:0 5px 15px rgba(0,0,0,.05)}
+
+/* PROCESS */
+.process{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.step{background:#fff;padding:20px;border-radius:16px;box-shadow:0 5px 15px rgba(0,0,0,.05)}
+
+/* REVIEWS */
+.reviews .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.review{background:#fff;padding:20px;border-radius:16px;box-shadow:0 5px 15px rgba(0,0,0,.05)}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.about img{width:100%;border-radius:18px}
+
+/* CTA */
+.cta{background:#1E1E1E;color:#fff;text-align:center;padding:70px 20px;border-radius:20px;margin-top:60px}
+
+/* CONTACT */
+.contact{margin-top:60px}
+.map iframe{width:100%;height:320px;border-radius:16px;border:0}
+.social{display:flex;gap:10px;margin-top:15px}
+.social a{background:#1E1E1E;color:#fff;padding:10px 14px;border-radius:12px;text-decoration:none}
+
+/* STICKY BUTTONS */
+.sticky{position:fixed;bottom:0;width:100%;display:flex;z-index:999}
+.sticky a{flex:1;text-align:center;padding:15px;color:#fff}
+.call{background:#1E1E1E}
+.wa{background:#0DB14B}
+
+/* DESKTOP SIDE BUTTONS */
+@media(min-width:1024px){
+.sticky{top:50%;right:15px;bottom:auto;width:auto;flex-direction:column;transform:translateY(-50%)}
+.sticky a{width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0;margin:5px 0}
 }
 
-.tabs{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:20px;
-}
-
-.tabs button{
-  padding:10px 15px;
-  border:none;
-  background:#eee;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-.tabs .active{
-  background:#0DB14B;
-  color:#fff;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:15px;
-}
-
-.item img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-/* LIGHTBOX */
-.lightbox{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.8);
-  justify-content:center;
-  align-items:center;
-}
-
-.lightbox img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:10px;
+@media(max-width:768px){
+.hero h1{font-size:34px}
+.about{grid-template-columns:1fr}
+.advantages{grid-template-columns:1fr}
+.process{grid-template-columns:1fr 1fr}
+.gallery{column-count:2}
 }
 </style>
 </head>
-
 <body>
 
 <!-- HERO -->
 <section class="hero">
-  <h1>Ролл-шторы</h1>
-  <p>Замер бесплатно • Установка 2 дня</p>
-  <button class="btn" onclick="openQuiz()">Получить расчет</button>
+<div class="container hero-content">
+<h1>Жалюзи и ролл-шторы для вашего дома</h1>
+<p>Создаём уют, стиль и комфорт в каждом интерьере</p>
+<div class="utp">
+<span>✔ Бесплатный замер</span>
+<span>✔ 3 дня изготовление</span>
+<span>✔ Гарантия качества</span>
+</div>
+<a href="#quiz" class="btn btn-accent">Подобрать дизайн</a>
+<a href="https://wa.me/77000000000" class="btn btn-primary">WhatsApp</a>
+</div>
 </section>
 
 <!-- QUIZ -->
-<div id="quizModal">
-  <div class="quiz-box">
-
-    <span onclick="closeQuiz()" style="float:right;cursor:pointer">✖</span>
-
-    <div class="quiz-step active">
-      <h3>Где?</h3>
-      <button onclick="next('Квартира')">Квартира</button>
-      <button onclick="next('Дом')">Дом</button>
-    </div>
-
-    <div class="quiz-step">
-      <h3>Тип?</h3>
-      <button onclick="next('Ролл')">Ролл</button>
-      <button onclick="next('Жалюзи')">Жалюзи</button>
-    </div>
-
-    <div class="quiz-step">
-      <h3>Размер?</h3>
-      <button onclick="next('Маленькое')">Маленькое</button>
-      <button onclick="next('Большое')">Большое</button>
-    </div>
-
-    <div class="quiz-step">
-      <h3>Телефон</h3>
-      <input id="phone" placeholder="+7..." style="width:100%;padding:10px;margin-top:10px">
-
-      <div class="quiz-actions">
-        <button onclick="send()">Отправить</button>
-        <button class="cancel" onclick="closeQuiz()">Отмена</button>
-      </div>
-    </div>
-
-  </div>
+<section id="quiz" class="quiz">
+<div class="container">
+<h2>Какой интерьер вам ближе?</h2>
+<div class="quiz-grid">
+<div class="quiz-item" onclick="selectQuiz('Минимализм')">Минимализм</div>
+<div class="quiz-item" onclick="selectQuiz('Уютный дом')">Уютный дом</div>
+<div class="quiz-item" onclick="selectQuiz('Премиум стиль')">Премиум стиль</div>
+<div class="quiz-item" onclick="selectQuiz('Натуральные оттенки')">Натуральные оттенки</div>
 </div>
-
-<!-- GALLERY -->
-<section class="gallery">
-  <h2>Галерея</h2>
-
-  <div class="tabs">
-    <button class="active" onclick="filter('catalog')">Каталог</button>
-    <button onclick="filter('portfolio')">Портфолио</button>
-    <button onclick="filter('inspiration')">Интерьер</button>
-  </div>
-
-  <div class="grid">
-
-    <div class="item catalog"><img src="https://via.placeholder.com/400x300" onclick="openImg(this)"></div>
-    <div class="item catalog"><img src="https://via.placeholder.com/400x300" onclick="openImg(this)"></div>
-
-    <div class="item portfolio"><img src="https://via.placeholder.com/400x300" onclick="openImg(this)"></div>
-    <div class="item portfolio"><img src="https://via.placeholder.com/400x300" onclick="openImg(this)"></div>
-
-    <div class="item inspiration"><img src="https://via.placeholder.com/400x300" onclick="openImg(this)"></div>
-
-  </div>
+<br>
+<input id="phone" placeholder="Ваш телефон">
+<br>
+<br>
+<button class="btn btn-accent" onclick="sendQuiz()">Получить подбор</button>
+</div>
 </section>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeImg()">
-  <img id="bigImg">
+<!-- CATALOG -->
+<section class="catalog container" data-aos="fade-up">
+<h2>Каталог решений</h2>
+<div class="grid">
+<div class="card"><img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f"><div class="card-overlay">Жалюзи</div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9"><div class="card-overlay">Ролл-шторы</div></div>
+</div>
+</section>
+
+<!-- GALLERY -->
+<section class="container" data-aos="fade-up">
+<h2>Галерея вдохновения</h2>
+<div class="gallery">
+<img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85">
+<img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb">
+<img src="https://images.unsplash.com/photo-1507089947367-19c1da9775ae">
+<img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6">
+</div>
+</section>
+
+<!-- ADVANTAGES -->
+<section class="container advantages" data-aos="fade-up">
+<div class="adv">15 лет опыта</div>
+<div class="adv">3000+ заказов</div>
+<div class="adv">1000+ материалов</div>
+</section>
+
+<!-- PROCESS -->
+<section class="container process" data-aos="fade-up">
+<div class="step">Заявка</div>
+<div class="step">Замер</div>
+<div class="step">Изготовление</div>
+<div class="step">Установка</div>
+</section>
+
+<!-- REVIEWS -->
+<section class="container reviews" data-aos="fade-up">
+<h2>Отзывы клиентов</h2>
+<div class="grid">
+<div class="review">Очень красиво сделали интерьер</div>
+<div class="review">Быстро и аккуратно</div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section class="container about" data-aos="fade-up">
+<img src="https://images.unsplash.com/photo-1501183638710-841dd1904471">
+<div>
+<h2>О компании</h2>
+<p>Мы создаём стильные и функциональные решения для вашего дома.</p>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta container" data-aos="zoom-in">
+<h2>Получите дизайн под ваш интерьер</h2>
+<a href="https://wa.me/77000000000" class="btn btn-accent">Написать в WhatsApp</a>
+</section>
+
+<!-- CONTACT -->
+<section class="container contact" data-aos="fade-up">
+<h2>Контакты</h2>
+<p>Свяжитесь с нами удобным способом</p>
+
+<div class="map">
+<iframe src="https://www.google.com/maps/embed"></iframe>
 </div>
 
+<div class="social">
+<a href="#">Instagram</a>
+<a href="#">Facebook</a>
+<a href="https://wa.me/77000000000">WhatsApp</a>
+</div>
+</section>
+
+<!-- STICKY -->
+<div class="sticky">
+<a href="tel:+77000000000" class="call">📞</a>
+<a href="https://wa.me/77000000000" class="wa">💬</a>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init();</script>
+
 <script>
-let step=0;
-let data=[];
-
-/* QUIZ */
-function openQuiz(){
-  document.getElementById('quizModal').style.display='flex';
-}
-
-function closeQuiz(){
-  document.getElementById('quizModal').style.display='none';
-}
-
-function next(val){
-  data.push(val);
-  let s=document.querySelectorAll('.quiz-step');
-  s[step].classList.remove('active');
-  step++;
-  if(s[step]) s[step].classList.add('active');
-}
-
-function send(){
-  let phone=document.getElementById('phone').value;
-  window.open("https://wa.me/77770000000?text="+encodeURIComponent(data.join(' | ')+" "+phone));
-}
-
-/* GALLERY */
-function filter(type){
-  let items=document.querySelectorAll('.item');
-  items.forEach(i=>{
-    i.style.display=i.classList.contains(type)?'block':'none';
-  });
-}
-
-function openImg(img){
-  document.getElementById('lightbox').style.display='flex';
-  document.getElementById('bigImg').src=img.src;
-}
-
-function closeImg(){
-  document.getElementById('lightbox').style.display='none';
+let quizAnswer='';
+function selectQuiz(val){quizAnswer=val;}
+function sendQuiz(){
+let phone=document.getElementById('phone').value;
+let text=`Подбор дизайна:%0AСтиль: ${quizAnswer}%0AТелефон: ${phone}`;
+window.open(`https://wa.me/77000000000?text=${text}`,'_blank');
 }
 </script>
 
