@@ -113,65 +113,93 @@ h1,h2,h3{font-family:Montserrat}
 <!-- QUIZ -->
 <section id="quiz" class="quiz">
 <div class="container">
-<h2>Подберите стиль вашего интерьера</h2>
 
+<h2>Подбор дизайна под ваш интерьер</h2>
+
+<div class="quiz-progress">
+<div class="quiz-bar" id="quizBar"></div>
+</div>
+
+<!-- STEP 1 -->
 <div class="quiz-step active" data-step="1">
-<p>Какой стиль вам ближе?</p>
+<h3>Какой стиль вам ближе?</h3>
 <div class="quiz-grid">
-<div class="quiz-item" onclick="nextStep('Минимализм')">Минимализм</div>
-<div class="quiz-item" onclick="nextStep('Уютный дом')">Уютный дом</div>
-<div class="quiz-item" onclick="nextStep('Премиум стиль')">Премиум стиль</div>
-<div class="quiz-item" onclick="nextStep('Натуральный стиль')">Натуральный стиль</div>
+<div class="quiz-item" onclick="selectAnswer(1,'Минимализм')">Минимализм</div>
+<div class="quiz-item" onclick="selectAnswer(1,'Уютный дом')">Уютный дом</div>
+<div class="quiz-item" onclick="selectAnswer(1,'Премиум')">Премиум</div>
+<div class="quiz-item" onclick="selectAnswer(1,'Натуральный')">Натуральный</div>
 </div>
 </div>
 
+<!-- STEP 2 -->
 <div class="quiz-step" data-step="2">
-<p>Где будут шторы?</p>
+<h3>Где будут шторы?</h3>
 <div class="quiz-grid">
-<div class="quiz-item" onclick="nextStep('Квартира')">Квартира</div>
-<div class="quiz-item" onclick="nextStep('Дом')">Дом</div>
-<div class="quiz-item" onclick="nextStep('Офис')">Офис</div>
+<div class="quiz-item" onclick="selectAnswer(2,'Квартира')">Квартира</div>
+<div class="quiz-item" onclick="selectAnswer(2,'Дом')">Дом</div>
+<div class="quiz-item" onclick="selectAnswer(2,'Офис')">Офис</div>
 </div>
 </div>
 
+<!-- STEP 3 -->
 <div class="quiz-step" data-step="3">
-<p>Тип изделия</p>
+<h3>Тип изделия</h3>
 <div class="quiz-grid">
-<div class="quiz-item" onclick="nextStep('Ролл-шторы')">Ролл-шторы</div>
-<div class="quiz-item" onclick="nextStep('Жалюзи')">Жалюзи</div>
+<div class="quiz-item" onclick="selectAnswer(3,'Ролл-шторы')">Ролл-шторы</div>
+<div class="quiz-item" onclick="selectAnswer(3,'Жалюзи')">Жалюзи</div>
 </div>
 </div>
 
+<!-- STEP 4 -->
 <div class="quiz-step" data-step="4">
-<p>Оставьте ваш телефон</p>
+<h3>Контакт</h3>
 <input id="phone" placeholder="Ваш телефон">
 <br><br>
 <button class="btn btn-accent" onclick="sendQuiz()">Получить подбор</button>
 </div>
+
 </div>
 </section>
 
+<style>
+.quiz{background:#F7F7F7;padding:70px 20px}
+.quiz h2{text-align:center;margin-bottom:20px}
+.quiz-step{display:none;opacity:0;transform:translateY(10px);transition:.4s ease}
+.quiz-step.active{display:block;opacity:1;transform:translateY(0)}
+.quiz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:20px}
+.quiz-item{background:#fff;padding:22px;border-radius:16px;text-align:center;cursor:pointer;transition:.3s;box-shadow:0 10px 25px rgba(0,0,0,.06)}
+.quiz-item:hover{transform:translateY(-5px);box-shadow:0 15px 30px rgba(0,0,0,.1)}
+.quiz-progress{width:100%;height:6px;background:#eaeaea;border-radius:10px;margin-bottom:25px;overflow:hidden}
+.quiz-bar{height:100%;width:0;background:#0DB14B;transition:.4s}
+input{width:100%;padding:14px;border-radius:12px;border:1px solid #ddd;margin-top:10px}
+</style>
+
 <script>
-let quizData = {};
-let currentStep = 1;
+let quiz = {1:'',2:'',3:''};
+let step = 1;
 
-function nextStep(value){
-quizData['step'+currentStep]=value;
+function selectAnswer(s,val){
+quiz[s]=val;
+nextStep();
+}
 
-document.querySelector('.quiz-step[data-step="'+currentStep+'"]').classList.remove('active');
-currentStep++;
-let next=document.querySelector('.quiz-step[data-step="'+currentStep+'"]').classList.add('active');
+function nextStep(){
+let current=document.querySelector('.quiz-step[data-step="'+step+'"]');
+current.classList.remove('active');
+step++;
+let next=document.querySelector('.quiz-step[data-step="'+step+'"]');
+if(next) next.classList.add('active');
+updateBar();
+}
+
+function updateBar(){
+let percent=(step-1)/4*100;
+document.getElementById('quizBar').style.width=percent+'%';
 }
 
 function sendQuiz(){
-quizData.phone=document.getElementById('phone').value;
-
-let text = `Подбор дизайна:%0A`+
-`Стиль: ${quizData.step1}%0A`+
-`Помещение: ${quizData.step2}%0A`+
-`Тип: ${quizData.step3}%0A`+
-`Телефон: ${quizData.phone}`;
-
+let phone=document.getElementById('phone').value;
+let text=`Подбор дизайна:%0AСтиль: ${quiz[1]}%0AПомещение: ${quiz[2]}%0AИзделие: ${quiz[3]}%0AТелефон: ${phone}`;
 window.open(`https://wa.me/77000000000?text=${text}`,'_blank');
 }
 </script>
