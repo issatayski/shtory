@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Жалюзи и ролл-шторы под ключ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter;background:#F5F5F5;color:#1E1E1E}
+h1,h2,h3{font-family:Montserrat}
+.container{max-width:1200px;margin:auto;padding:20px}
+.btn{padding:14px 24px;border-radius:12px;text-decoration:none;font-weight:600;display:inline-block;transition:.3s}
+.btn-primary{background:#1E1E1E;color:#fff}
+.btn-accent{background:#0DB14B;color:#fff}
+.btn:hover{transform:scale(1.05)}
+
+.hero{background:url('hero.jpg') center/cover no-repeat;color:#fff;padding:120px 20px}
+.hero h1{font-size:42px}
+.utp{display:flex;gap:10px;margin:20px 0;flex-wrap:wrap}
+
+.quiz{background:#fff;padding:30px;border-radius:16px;margin-top:-60px;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.quiz-step{display:none}
+.quiz-step.active{display:block}
+.quiz button{margin-top:10px;padding:10px 15px;border:none;border-radius:8px;background:#eee;cursor:pointer}
+.quiz button.selected{background:#0DB14B;color:#fff}
+.progress{height:6px;background:#ddd;margin-bottom:15px;border-radius:10px}
+.progress-bar{height:100%;width:0;background:#0DB14B;border-radius:10px;transition:.3s}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.1);transition:.3s}
+.card:hover{transform:translateY(-8px)}
+.card img{width:100%}
+.card-body{padding:15px}
+
+.gallery{column-count:3;gap:10px}
+.gallery img{width:100%;margin-bottom:10px;border-radius:12px;cursor:pointer}
+
+.lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);display:none;justify-content:center;align-items:center}
+.lightbox img{max-width:90%}
+
+.advantages,.steps{display:flex;justify-content:space-between;text-align:center}
+
+.cta{background:#1E1E1E;color:#fff;text-align:center;padding:60px}
+.timer{margin-top:15px;font-size:20px}
+
+.sticky-buttons{position:fixed;bottom:0;width:100%;display:flex}
+.sticky-buttons a{flex:1;text-align:center;padding:15px;color:#fff}
+.call{background:#1E1E1E}
+.wa{background:#0DB14B}
+
+@media(max-width:768px){
+.hero h1{font-size:28px}
+.gallery{column-count:2}
+.advantages,.steps{flex-direction:column;gap:20px}
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+<div class="container">
+<h1>Жалюзи и ролл-шторы под ключ</h1>
+<p>Изготовление и установка за 3 дня</p>
+<div class="utp">
+<span>✔ Бесплатный замер</span>
+<span>✔ Гарантия 2 года</span>
+<span>✔ Более 3000 проектов</span>
+</div>
+<a href="#quiz" class="btn btn-primary">Рассчитать стоимость</a>
+<a href="https://wa.me/77000000000" class="btn btn-accent">WhatsApp</a>
+</div>
+</section>
+
+<section id="quiz" class="container quiz">
+<div class="progress"><div class="progress-bar" id="bar"></div></div>
+
+<div class="quiz-step active">
+<p>Где нужны шторы?</p>
+<button onclick="select(this,'Квартира')">Квартира</button>
+<button onclick="select(this,'Дом')">Дом</button>
+<button onclick="select(this,'Офис')">Офис</button>
+</div>
+
+<div class="quiz-step">
+<p>Тип изделия?</p>
+<button onclick="select(this,'Ролл-шторы')">Ролл-шторы</button>
+<button onclick="select(this,'Жалюзи')">Жалюзи</button>
+</div>
+
+<div class="quiz-step">
+<p>Размер?</p>
+<input id="size" placeholder="Например: 120x140">
+<button onclick="next()">Далее</button>
+</div>
+
+<div class="quiz-step">
+<p>Ваш телефон</p>
+<input id="phone" placeholder="Телефон">
+<button onclick="send()">Получить расчет</button>
+</div>
+</section>
+
+<section class="container" data-aos="fade-up">
+<h2>Каталог</h2>
+<div class="grid">
+<div class="card"><img src="img1.jpg"><div class="card-body"><h3>Ролл-шторы</h3><p>от 10 000 ₸</p></div></div>
+<div class="card"><img src="img2.jpg"><div class="card-body"><h3>Жалюзи</h3><p>от 12 000 ₸</p></div></div>
+</div>
+</section>
+
+<section class="container" data-aos="fade-up">
+<h2>Галерея</h2>
+<div class="gallery">
+<img src="g1.jpg" onclick="openImg(this)">
+<img src="g2.jpg" onclick="openImg(this)">
+<img src="g3.jpg" onclick="openImg(this)">
+</div>
+</section>
+
+<div class="lightbox" onclick="this.style.display='none'"><img id="lightImg"></div>
+
+<section class="container advantages" data-aos="fade-up">
+<div>15 лет опыта</div>
+<div>3000+ заказов</div>
+<div>1000+ материалов</div>
+</section>
+
+<section class="cta">
+<h2>Скидка действует ограниченное время</h2>
+<div class="timer" id="timer"></div>
+<a href="#quiz" class="btn btn-accent">Получить расчет</a>
+</section>
+
+<div class="sticky-buttons">
+<a href="tel:+77000000000" class="call">Позвонить</a>
+<a href="https://wa.me/77000000000" class="wa">WhatsApp</a>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init();
+
+let step=0;
+let data={};
+const steps=document.querySelectorAll('.quiz-step');
+
+function next(){
+steps[step].classList.remove('active');
+step++;
+steps[step].classList.add('active');
+updateBar();
+}
+
+function select(el,value){
+data['step'+step]=value;
+el.classList.add('selected');
+setTimeout(next,300);
+}
+
+function updateBar(){
+document.getElementById('bar').style.width=((step+1)/steps.length*100)+'%';
+}
+
+function send(){
+data.size=document.getElementById('size').value;
+data.phone=document.getElementById('phone').value;
+
+let text=`Заявка с сайта:%0AТип: ${data.step1}%0AПомещение: ${data.step0}%0AРазмер: ${data.size}%0AТелефон: ${data.phone}`;
+window.open(`https://wa.me/77000000000?text=${text}`,'_blank');
+}
+
+function openImg(el){
+document.querySelector('.lightbox').style.display='flex';
+document.getElementById('lightImg').src=el.src;
+}
+
+// таймер
+let time=3600;
+setInterval(()=>{
+let m=Math.floor(time/60);
+let s=time%60;
+document.getElementById('timer').innerText=`${m}:${s<10?'0'+s:s}`;
+time--;
+},1000);
+</script>
+
+</body>
+</html>
