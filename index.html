@@ -1,162 +1,151 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Жалюзи и ролл-шторы</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жалюзи и ролл-шторы</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-<link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- HERO -->
-<section class="hero">
-<div class="container hero-content">
-<h1>Жалюзи и ролл-шторы для вашего дома</h1>
-<p>Создаём уют, стиль и комфорт в каждом интерьере</p>
-<div class="utp">
-<span>✔ Бесплатный замер</span>
-<span>✔ 3 дня изготовление</span>
-<span>✔ Гарантия качества</span>
-</div>
-<a href="#quiz" class="btn btn-accent">Подобрать дизайн</a>
-<a href="https://wa.me/77000000000" class="btn btn-primary">WhatsApp</a>
-</div>
-</section>
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Жалюзи и ролл-шторы для вашего дома</h1>
+            <p>Создаём уют, стиль и комфорт в каждом интерьере</p>
+            <div class="utp">
+                <span>✔ Бесплатный замер</span>
+                <span>✔ 3 дня изготовление</span>
+                <span>✔ Гарантия качества</span>
+            </div>
+            <a href="#quiz" class="btn btn-accent">Подобрать дизайн</a>
+            <a href="https://wa.me/77000000000" class="btn btn-primary">WhatsApp</a>
+        </div>
+    </section>
 
-<!-- QUIZ -->
-<section id="quiz" class="quiz">
-<div class="container">
+    <section id="quiz" class="quiz">
+        <div class="container">
+            <h2>Подбор дизайна под ваш интерьер</h2>
+            <div class="quiz-progress">
+                <div class="quiz-bar" id="quizBar"></div>
+            </div>
 
-<h2>Подбор дизайна под ваш интерьер</h2>
+            <div class="quiz-step active" data-step="1">
+                <h3>Какой стиль вам ближе?</h3>
+                <div class="quiz-grid">
+                    <div class="quiz-item" onclick="selectAnswer(1,'Минимализм')">Минимализм</div>
+                    <div class="quiz-item" onclick="selectAnswer(1,'Уютный дом')">Уютный дом</div>
+                    <div class="quiz-item" onclick="selectAnswer(1,'Премиум')">Премиум</div>
+                    <div class="quiz-item" onclick="selectAnswer(1,'Натуральный')">Натуральный</div>
+                </div>
+            </div>
 
-<div class="quiz-progress">
-<div class="quiz-bar" id="quizBar"></div>
-</div>
+            <div class="quiz-step" data-step="2">
+                <h3>Где будут шторы?</h3>
+                <div class="quiz-grid">
+                    <div class="quiz-item" onclick="selectAnswer(2,'Квартира')">Квартира</div>
+                    <div class="quiz-item" onclick="selectAnswer(2,'Дом')">Дом</div>
+                    <div class="quiz-item" onclick="selectAnswer(2,'Офис')">Офис</div>
+                </div>
+            </div>
 
-<div class="quiz-step active" data-step="1">
-<h3>Какой стиль вам ближе?</h3>
-<div class="quiz-grid">
-<div class="quiz-item" onclick="selectAnswer(1,'Минимализм')">Минимализм</div>
-<div class="quiz-item" onclick="selectAnswer(1,'Уютный дом')">Уютный дом</div>
-<div class="quiz-item" onclick="selectAnswer(1,'Премиум')">Премиум</div>
-<div class="quiz-item" onclick="selectAnswer(1,'Натуральный')">Натуральный</div>
-</div>
-</div>
+            <div class="quiz-step" data-step="3">
+                <h3>Тип изделия</h3>
+                <div class="quiz-grid">
+                    <div class="quiz-item" onclick="selectAnswer(3,'Ролл-шторы')">Ролл-шторы</div>
+                    <div class="quiz-item" onclick="selectAnswer(3,'Жалюзи')">Жалюзи</div>
+                </div>
+            </div>
 
-<div class="quiz-step" data-step="2">
-<h3>Где будут шторы?</h3>
-<div class="quiz-grid">
-<div class="quiz-item" onclick="selectAnswer(2,'Квартира')">Квартира</div>
-<div class="quiz-item" onclick="selectAnswer(2,'Дом')">Дом</div>
-<div class="quiz-item" onclick="selectAnswer(2,'Офис')">Офис</div>
-</div>
-</div>
+            <div class="quiz-step" data-step="4">
+                <h3>Контакт</h3>
+                <input id="phone" type="tel" placeholder="Ваш телефон">
+                <br><br>
+                <button class="btn btn-accent" onclick="sendQuiz()">Получить подбор</button>
+            </div>
+        </div>
+    </section>
 
-<div class="quiz-step" data-step="3">
-<h3>Тип изделия</h3>
-<div class="quiz-grid">
-<div class="quiz-item" onclick="selectAnswer(3,'Ролл-шторы')">Ролл-шторы</div>
-<div class="quiz-item" onclick="selectAnswer(3,'Жалюзи')">Жалюзи</div>
-</div>
-</div>
+    <section class="catalog container" data-aos="fade-up">
+        <h2>Каталог решений</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f">
+                <div class="card-overlay">Жалюзи</div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9">
+                <div class="card-overlay">Ролл-шторы</div>
+            </div>
+        </div>
+    </section>
 
-<div class="quiz-step" data-step="4">
-<h3>Контакт</h3>
-<input id="phone" placeholder="Ваш телефон">
-<br><br>
-<button class="btn btn-accent" onclick="sendQuiz()">Получить подбор</button>
-</div>
+    <section class="container" data-aos="fade-up">
+        <h2>Галерея вдохновения</h2>
+        <div class="gallery">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85">
+            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb">
+            <img src="https://images.unsplash.com/photo-1507089947367-19c1da9775ae">
+            <img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6">
+        </div>
+    </section>
 
-</div>
-</section>
+    <section class="container advantages" data-aos="fade-up">
+        <div class="adv">15 лет опыта</div>
+        <div class="adv">3000+ заказов</div>
+        <div class="adv">1000+ материалов</div>
+    </section>
 
-<!-- CATALOG -->
-<section class="catalog container" data-aos="fade-up">
-<h2>Каталог решений</h2>
-<div class="grid">
-<div class="card"><img src="https://images.unsplash.com/photo-1501045661006-fcebe0257c3f"><div class="card-overlay">Жалюзи</div></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9"><div class="card-overlay">Ролл-шторы</div></div>
-</div>
-</section>
+    <section class="container process" data-aos="fade-up">
+        <div class="step">Заявка</div>
+        <div class="step">Замер</div>
+        <div class="step">Изготовление</div>
+        <div class="step">Установка</div>
+    </section>
 
-<!-- GALLERY -->
-<section class="container" data-aos="fade-up">
-<h2>Галерея вдохновения</h2>
-<div class="gallery">
-<img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85">
-<img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb">
-<img src="https://images.unsplash.com/photo-1507089947367-19c1da9775ae">
-<img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6">
-</div>
-</section>
+    <section class="container reviews" data-aos="fade-up">
+        <h2>Отзывы клиентов</h2>
+        <div class="grid">
+            <div class="review">Очень красиво сделали интерьер</div>
+            <div class="review">Быстро и аккуратно</div>
+        </div>
+    </section>
 
-<!-- ADVANTAGES -->
-<section class="container advantages" data-aos="fade-up">
-<div class="adv">15 лет опыта</div>
-<div class="adv">3000+ заказов</div>
-<div class="adv">1000+ материалов</div>
-</section>
+    <section class="container about" data-aos="fade-up">
+        <img src="https://images.unsplash.com/photo-1501183638710-841dd1904471">
+        <div>
+            <h2>О компании</h2>
+            <p>Мы создаём стильные и функциональные решения для вашего дома.</p>
+        </div>
+    </section>
 
-<!-- PROCESS -->
-<section class="container process" data-aos="fade-up">
-<div class="step">Заявка</div>
-<div class="step">Замер</div>
-<div class="step">Изготовление</div>
-<div class="step">Установка</div>
-</section>
+    <section class="cta container" data-aos="zoom-in">
+        <h2>Получите дизайн под ваш интерьер</h2>
+        <a href="https://wa.me/77000000000" class="btn btn-accent">Написать в WhatsApp</a>
+    </section>
 
-<!-- REVIEWS -->
-<section class="container reviews" data-aos="fade-up">
-<h2>Отзывы клиентов</h2>
-<div class="grid">
-<div class="review">Очень красиво сделали интерьер</div>
-<div class="review">Быстро и аккуратно</div>
-</div>
-</section>
+    <section class="container contact" data-aos="fade-up">
+        <h2>Контакты</h2>
+        <p>Свяжитесь с нами удобным способом</p>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15000!2d0!3d0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1234567890"></iframe>
+        </div>
+        <div class="social">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="https://wa.me/77000000000">WhatsApp</a>
+        </div>
+    </section>
 
-<!-- ABOUT -->
-<section class="container about" data-aos="fade-up">
-<img src="https://images.unsplash.com/photo-1501183638710-841dd1904471">
-<div>
-<h2>О компании</h2>
-<p>Мы создаём стильные и функциональные решения для вашего дома.</p>
-</div>
-</section>
+    <div class="sticky">
+        <a href="tel:+77000000000" class="call">📞</a>
+        <a href="https://wa.me/77000000000" class="wa">💬</a>
+    </div>
 
-<!-- CTA -->
-<section class="cta container" data-aos="zoom-in">
-<h2>Получите дизайн под ваш интерьер</h2>
-<a href="https://wa.me/77000000000" class="btn btn-accent">Написать в WhatsApp</a>
-</section>
-
-<!-- CONTACT -->
-<section class="container contact" data-aos="fade-up">
-<h2>Контакты</h2>
-<p>Свяжитесь с нами удобным способом</p>
-
-<div class="map">
-<iframe src="https://www.google.com/maps/embed"></iframe>
-</div>
-
-<div class="social">
-<a href="#">Instagram</a>
-<a href="#">Facebook</a>
-<a href="https://wa.me/77000000000">WhatsApp</a>
-</div>
-</section>
-
-<!-- STICKY -->
-<div class="sticky">
-<a href="tel:+77000000000" class="call">📞</a>
-<a href="https://wa.me/77000000000" class="wa">💬</a>
-</div>
-
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="script.js"></script>
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

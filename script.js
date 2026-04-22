@@ -1,34 +1,75 @@
-AOS.init();
+// Инициализация анимаций появления
+AOS.init({
+    duration: 800,
+    once: true
+});
 
-let quiz = {1:'',2:'',3:''};
-let step = 1;
+// Логика Квиза
+let quizData = {
+    1: '', // Стиль
+    2: '', // Помещение
+    3: ''  // Тип изделия
+};
 
-function selectAnswer(s,val){
-    quiz[s]=val;
+let currentStep = 1;
+const totalSteps = 4;
+
+/**
+ * Выбор ответа в квизе
+ * @param {number} stepNum - Номер текущего шага
+ * @param {string} value - Текст выбранного ответа
+ */
+function selectAnswer(stepNum, value) {
+    quizData[stepNum] = value;
     nextStep();
 }
 
-function nextStep(){
-    let current=document.querySelector('.quiz-step[data-step="'+step+'"]');
-    current.classList.remove('active');
+/**
+ * Переход к следующему шагу
+ */
+function nextStep() {
+    const currentStepEl = document.querySelector(`.quiz-step[data-step="${currentStep}"]`);
+    currentStepEl.classList.remove('active');
 
-    step++;
+    currentStep++;
 
-    let next=document.querySelector('.quiz-step[data-step="'+step+'"]');
-    if(next) next.classList.add('active');
-
-    updateBar();
+    const nextStepEl = document.querySelector(`.quiz-step[data-step="${currentStep}"]`);
+    if (nextStepEl) {
+        nextStepEl.classList.add('active');
+    }
+    
+    updateProgressBar();
 }
 
-function updateBar(){
-    let percent=(step-1)/4*100;
-    document.getElementById('quizBar').style.width=percent+'%';
+/**
+ * Обновление полосы прогресса
+ */
+function updateProgressBar() {
+    const percent = ((currentStep - 1) / (totalSteps - 1)) * 100;
+    const bar = document.getElementById('quizBar');
+    if (bar) {
+        bar.style.width = percent + '%';
+    }
 }
 
-function sendQuiz(){
-    let phone=document.getElementById('phone').value;
+/**
+ * Сбор данных и отправка в WhatsApp
+ */
+function sendQuiz() {
+    const phone = document.getElementById('phone').value;
+    
+    if (!phone) {
+        alert('Пожалуйста, введите ваш номер телефона');
+        return;
+    }
 
-    let text=`Подбор дизайна:%0AСтиль: ${quiz[1]}%0AПомещение: ${quiz[2]}%0AИзделие: ${quiz[3]}%0AТелефон: ${phone}`;
+    const message = `Новая заявка (Подбор дизайна):%0A` +
+                    `— Стиль: ${quizData[1]}%0A` +
+                    `— Помещение: ${quizData[2]}%0A` +
+                    `— Изделие: ${quizData[3]}%0A` +
+                    `— Телефон: ${phone}`;
 
-    window.open(`https://wa.me/77000000000?text=${text}`,'_blank');
+    const whatsappUrl = `https://wa.me/77000000000?text=${message}`;
+    
+    window.open(whatsappUrl, '_blank');
 }
