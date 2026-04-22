@@ -21,17 +21,17 @@
 }
 
 .logo {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
+    display: flex;          /* Включает гибкий контейнер */
+    align-items: center;    /* Выравнивает лого и текст по вертикальному центру */
+    gap: 15px;              /* Создает расстояние между логотипом и лозунгом */
+    text-decoration: none;
 }
 
 /* Стили для логотипа-картинки */
 .logo-img {
-    height: 50px;    /* Высота логотипа подбирается под высоту шапки (70px) */
-    width: auto;     /* Ширина подстроится автоматически */
+    height: 50px;           /* Настройте высоту под ваш дизайн */
+    width: auto;
     display: block;
-    transition: transform 0.3s ease;
 }
 
 .logo-img:hover {
@@ -46,7 +46,23 @@
 }
 
 .logo strong { font-size: 20px; font-family: 'Montserrat'; }
-.logo-slogan { font-size: 12px; color: #666; }
+.logo-slogan {
+    font-size: 14px;        /* Размер шрифта лозунга */
+    color: #666;            /* Цвет текста */
+    line-height: 1.2;
+    max-width: 150px;       /* Опционально: ограничивает ширину текста, если он длинный */
+}
+
+/* На мобильных устройствах, если места мало, можно уменьшить gap */
+@media (max-width: 768px) {
+    .logo {
+        gap: 8px;
+    }
+    .logo-slogan {
+        font-size: 11px;
+        display: block;     /* Или display: none; если хотите скрыть лозунг на телефонах */
+    }
+}
 
 /* DESKTOP NAV */
 .nav-desktop { display: flex; align-items: center; gap: 25px; }
