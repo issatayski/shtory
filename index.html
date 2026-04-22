@@ -85,64 +85,37 @@
 
     <section class="container" data-aos="fade-up">
         <h2>Галерея вдохновения</h2>
-				<div class="gallery">
-					<div class="video-preview" id="openVideo">
-						<img src="./img/background_1.jpg" alt="Видео превью">
-					<div class="play-btn"></div>
-					</div>
+		<div class="gallery">
+						<div class="video-preview" data-video="./img/erzhaluzi1.mp4">
+							<img src="./img/erzhaluzi1.jpg">
+							<div class="play-btn"></div>
+						</div>
 
-<!-- Модалка (как было) -->
-			<div id="modal" class="modal">
-				<div class="modal-inner">
-    
-					<video id="video" playsinline preload="auto">
-						<source src="./img/erzhaluzi1.mp4" type="video/mp4">
-					</video>
+						<div class="video-preview" data-video="./img/erzhaluzi2_.webm">
+							<img src="./img/erzhaluzi1.jpg">
+							<div class="play-btn"></div>
+						</div>
 
-					<div class="progress">
+						<div class="video-preview" data-video="./img/erzhaluzi3_.webm">
+							<img src="./img/erzhaluzi1.jpg">
+							<div class="play-btn"></div>
+						</div>
+
+				<!-- ОДНА модалка -->
+				<div id="modal" class="modal">
+					<div class="modal-inner">
+
+						<!-- loader -->
+						<div class="loader" id="loader"></div>
+
+						<video id="video" playsinline preload="auto"></video>
+
+						<div class="progress">
 						<div class="progress-bar" id="progressBar"></div>
-					</div>
+						</div>
 
-				</div>
-			</div>
-			
-			<div class="video-preview" id="openVideo">
-						<img src="./img/background_1.jpg" alt="Видео превью">
-					<div class="play-btn"></div>
 					</div>
-			
-			<div id="modal" class="modal">
-				<div class="modal-inner">
-    
-					<video id="video" playsinline preload="auto">
-						<source src="./img/erzhaluzi1.mp4" type="video/mp4">
-					</video>
-
-					<div class="progress">
-						<div class="progress-bar" id="progressBar"></div>
-					</div>
-
-				</div>
-			</div>
-			
-			<div class="video-preview" id="openVideo">
-						<img src="./img/background_1.jpg" alt="Видео превью">
-					<div class="play-btn"></div>
-					</div>
-			
-			<div id="modal" class="modal">
-				<div class="modal-inner">
-    
-					<video id="video" playsinline preload="auto">
-						<source src="./img/erzhaluzi1.mp4" type="video/mp4">
-					</video>
-
-					<div class="progress">
-						<div class="progress-bar" id="progressBar"></div>
-					</div>
-
-				</div>
-			</div>
+				</div>	
 			
 			
 			

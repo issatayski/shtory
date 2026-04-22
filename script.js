@@ -74,23 +74,42 @@ function sendQuiz() {
     window.open(whatsappUrl, '_blank');
 }
 
-const btn = document.getElementById('openVideo');
+const previews = document.querySelectorAll('.video-preview');
 const modal = document.getElementById('modal');
 const video = document.getElementById('video');
 const progressBar = document.getElementById('progressBar');
+const loader = document.getElementById('loader');
 
-btn.addEventListener('click', () => {
-  modal.classList.add('active');
-  document.body.classList.add('modal-open');
+previews.forEach(preview => {
+  preview.addEventListener('click', () => {
 
-  video.currentTime = 0;
+    const src = preview.getAttribute('data-video');
 
-  // ВАЖНО: включаем звук
-  video.muted = false;
-  video.volume = 1;
+    modal.classList.add('active');
+    document.body.classList.add('modal-open');
 
-  video.play();
+    // показываем loader
+    loader.style.display = 'block';
+    video.classList.remove('show');
+
+    // подставляем видео
+    video.src = src;
+    video.load();
+
+    // включаем звук
+    video.muted = false;
+    video.volume = 1;
+
+    video.play();
+  });
 });
+
+// когда видео загрузилось
+video.addEventListener('canplay', () => {
+  loader.style.display = 'none';
+  video.classList.add('show');
+});
+
 // прогресс
 video.addEventListener('timeupdate', () => {
   const percent = (video.currentTime / video.duration) * 100;
@@ -98,19 +117,18 @@ video.addEventListener('timeupdate', () => {
 });
 
 // конец видео
-video.addEventListener('ended', () => {
-  closeModal();
-});
+video.addEventListener('ended', closeModal);
 
 // закрытие
 modal.addEventListener('click', (e) => {
-  if (e.target === modal) {
-    closeModal();
-  }
+  if (e.target === modal) closeModal();
 });
 
 function closeModal() {
   modal.classList.remove('active');
   document.body.classList.remove('modal-open');
+
   video.pause();
+  video.src = ''; // очищаем
+  progressBar.style.width = '0%';
 }
