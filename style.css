@@ -410,11 +410,16 @@ h1, h2, h3 {
     column-gap: 15px;
 }
 .video-gal {
-   /* column-count: 3;*/
+   column-count: 3;
     column-gap: 15px;
 }
 
 .gallery img {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 14px;
+}
+.video-gal img {
     width: 100%;
     margin-bottom: 15px;
     border-radius: 14px;
@@ -646,6 +651,8 @@ video {
 .video-preview img {
   width: 100%;
   display: block;
+  margin-bottom: 15px;
+  border-radius: 14px;
 }
 
 /* кнопка play */
