@@ -84,9 +84,13 @@ btn.addEventListener('click', () => {
   document.body.classList.add('modal-open');
 
   video.currentTime = 0;
+
+  // ВАЖНО: включаем звук
+  video.muted = false;
+  video.volume = 1;
+
   video.play();
 });
-
 // прогресс
 video.addEventListener('timeupdate', () => {
   const percent = (video.currentTime / video.duration) * 100;
