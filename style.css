@@ -29,7 +29,7 @@
 
 /* Стили для логотипа-картинки */
 .logo-img {
-    height: 50px;           /* Настройте высоту под ваш дизайн */
+    height: 70px;           /* Настройте высоту под ваш дизайн */
     width: auto;
     display: block;
 }
@@ -41,16 +41,16 @@
 /* На мобильных устройствах можно сделать чуть меньше */
 @media (max-width: 768px) {
     .logo-img {
-        height: 40px;
+        height: 60px;
     }
 }
 
 .logo strong { font-size: 20px; font-family: 'Montserrat'; }
 .logo-slogan {
-    font-size: 14px;        /* Размер шрифта лозунга */
-    color: #666;            /* Цвет текста */
+    font-size: 20px;        /* Размер шрифта лозунга */
+    color: #0c5b71;            /* Цвет текста */
     line-height: 1.2;
-    max-width: 150px;       /* Опционально: ограничивает ширину текста, если он длинный */
+    max-width: 250px;       /* Опционально: ограничивает ширину текста, если он длинный */
 }
 
 /* На мобильных устройствах, если места мало, можно уменьшить gap */
@@ -59,7 +59,7 @@
         gap: 8px;
     }
     .logo-slogan {
-        font-size: 11px;
+        font-size: 18px;
         display: block;     /* Или display: none; если хотите скрыть лозунг на телефонах */
     }
 }
@@ -223,7 +223,7 @@ h1, h2, h3 {
 .container {
     max-width: 1200px;
     margin: auto;
-    padding: 40px 20px;
+    padding: initial;
 }
 
 /* BUTTONS */
