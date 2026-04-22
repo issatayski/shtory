@@ -48,14 +48,15 @@
     font-size: 13px !important;
 }
 
-/* MOBILE TOGGLE (HAMBURGER) */
+/* Кнопка гамбургера */
 .menu-toggle {
-    display: none;
-    width: 30px;
-    height: 20px;
+    display: none; /* Скрыта на десктопе */
+    width: 24px;
+    height: 18px;
     position: relative;
     cursor: pointer;
-    z-index: 1002;
+    z-index: 2000; /* Самый высокий индекс, чтобы быть над меню */
+    transition: 0.3s;
 }
 
 .menu-toggle span {
@@ -64,59 +65,49 @@
     height: 2px;
     background: #1e1e1e;
     position: absolute;
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    left: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.menu-toggle span:first-child { top: 0; }
-.menu-toggle span:last-child { bottom: 0; }
+/* Позиции полосок */
+.line-1 { top: 0; }
+.line-2 { bottom: 0; }
 
-/* Active State for Hamburger */
-.menu-toggle.active span:first-child { transform: translateY(9px) rotate(45deg); }
-.menu-toggle.active span:last-child { transform: translateY(-9px) rotate(-45deg); }
+/* АНИМАЦИЯ В КРЕСТИК (состояние .active) */
+.menu-toggle.active .line-1 {
+    transform: translateY(8px) rotate(45deg);
+    background: #1e1e1e;
+}
 
-/* MOBILE OVERLAY */
+.menu-toggle.active .line-2 {
+    transform: translateY(-8px) rotate(-45deg);
+    background: #1e1e1e;
+}
+
+/* Мобильное меню (Overlay) */
 .mobile-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: #fff;
-    z-index: 1001;
+    height: 100dvh; /* Современный юнит для мобилок */
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px); /* Эффект Apple */
+    z-index: 1500;
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: translateY(-100%);
-    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(100%); /* Выезжает сбоку (можно сменить на translateY(-100%)) */
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.mobile-overlay.active { transform: translateY(0); }
-
-.mobile-nav-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
+.mobile-overlay.active {
+    transform: translateX(0);
 }
 
-.mobile-nav-list a {
-    font-family: 'Montserrat';
-    font-size: 28px;
-    text-decoration: none;
-    color: #1e1e1e;
-    font-weight: 700;
-}
-
-.mobile-call { color: #0DB14B !important; }
-
-/* ADJUST HERO (отступ под шапку) */
-.hero { margin-top: 0; } 
-
-/* RESPONSIVE */
+/* Показываем гамбургер на мобильных */
 @media (max-width: 1024px) {
-    .nav-desktop { display: none; }
     .menu-toggle { display: block; }
-    .logo-slogan { display: none; }
 }
 
 
