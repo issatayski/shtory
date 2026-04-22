@@ -1,0 +1,31 @@
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter;background:#fff;color:#1E1E1E;padding-bottom:80px}
+h1,h2,h3{font-family:Montserrat}
+.container{max-width:1200px;margin:auto;padding:20px}
+
+/* BUTTONS */
+.btn{padding:14px 26px;border-radius:30px;text-decoration:none;font-weight:600;display:inline-block;transition:.3s}
+.btn-primary{background:#1E1E1E;color:#fff}
+.btn-accent{background:#0DB14B;color:#fff}
+.btn:hover{transform:scale(1.05);opacity:.9}
+
+/* HERO */
+.hero{background:url('https://images.unsplash.com/photo-1505691938895-1758d7feb511') center/cover no-repeat;min-height:100vh;display:flex;align-items:center;color:#fff;position:relative}
+.hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.hero-content{position:relative;z-index:2;max-width:650px}
+.hero h1{font-size:52px;margin-bottom:15px}
+.hero p{font-size:18px;margin-bottom:20px}
+.utp{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:25px}
+.utp span{background:rgba(255,255,255,.15);padding:6px 12px;border-radius:20px}
+
+/* QUIZ */
+.quiz{background:#F7F7F7;padding:70px 20px}
+.quiz-step{display:none;opacity:0;transform:translateY(10px);transition:.4s}
+.quiz-step.active{display:block;opacity:1;transform:translateY(0)}
+.quiz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:20px}
+.quiz-item{background:#fff;padding:22px;border-radius:16px;text-align:center;cursor:pointer;transition:.3s;box-shadow:0 10px 25px rgba(0,0,0,.06)}
+.quiz-item:hover{transform:translateY(-5px)}
+.quiz-progress{width:100%;height:6px;background:#eaeaea;border-radius:10px;margin-bottom:25px}
+.quiz-bar{height:100%;width:0;background:#0DB14B;transition:.4s}
+
+/* остальной CSS 그대로 */
