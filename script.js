@@ -1,6 +1,5 @@
 AOS.init();
 
-/* QUIZ LOGIC */
 let quiz = {1:'',2:'',3:''};
 let step = 1;
 
