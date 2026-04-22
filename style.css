@@ -647,25 +647,13 @@ video {
   border-radius: 16px;
   overflow: hidden;
 }
-@media (max-width: 1024px){
+
 .video-preview img {
   width: 100%;
   display: block;
   margin-bottom: 15px;
   border-radius: 14px;
 }
-}
-
-@media (min-width: 1023px) {
-.video-preview img {
-  width: 100%;
-  display: grid;
-  margin-bottom: 15px;
-  border-radius: 14px;
-}
-}
-
-
 
 /* кнопка play */
 .play-btn {
