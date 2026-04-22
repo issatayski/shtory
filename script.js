@@ -152,32 +152,3 @@ function toggleMenu() {
 menuToggle.addEventListener('click', toggleMenu);
 
 // Закрытие меню при клике на ссылку (уже добавлено в HTML через onclick)
-const menuToggle = document.getElementById('menuToggle');
-const mobileMenu = document.getElementById('mobileMenu');
-
-function toggleMenu() {
-    // Переключаем класс active у кнопки (превращается в крестик)
-    menuToggle.classList.toggle('active');
-    // Переключаем класс active у самого меню (оно выезжает)
-    mobileMenu.classList.toggle('active');
-    
-    // Запрещаем скролл сайта под меню
-    if (mobileMenu.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = '';
-    }
-}
-
-// Слушатель на кнопку
-menuToggle.addEventListener('click', toggleMenu);
-
-// Закрытие при клике на любую ссылку в мобильном меню
-const mobileLinks = document.querySelectorAll('.mobile-nav-list a');
-mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        if (mobileMenu.classList.contains('active')) {
-            toggleMenu();
-        }
-    });
-});
