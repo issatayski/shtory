@@ -26,6 +26,25 @@
     line-height: 1.2;
 }
 
+/* Стили для логотипа-картинки */
+.logo-img {
+    height: 50px;    /* Высота логотипа подбирается под высоту шапки (70px) */
+    width: auto;     /* Ширина подстроится автоматически */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05); /* Легкий эффект при наведении */
+}
+
+/* На мобильных устройствах можно сделать чуть меньше */
+@media (max-width: 768px) {
+    .logo-img {
+        height: 40px;
+    }
+}
+
 .logo strong { font-size: 20px; font-family: 'Montserrat'; }
 .logo-slogan { font-size: 12px; color: #666; }
 
