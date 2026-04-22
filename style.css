@@ -43,15 +43,6 @@
     .logo-img {
         height: 60px;
     }
-	
-	
-
-@media (max-width: 768px) {
-    	
-	.video-gal {
-    column-count: 3;
-    column-gap: 15px;
-    display: grid;
 }
 
 .logo strong { font-size: 20px; font-family: 'Montserrat'; }
