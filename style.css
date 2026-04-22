@@ -409,6 +409,10 @@ h1, h2, h3 {
     column-count: 3;
     column-gap: 15px;
 }
+.video-gal {
+   /* column-count: 3;*/
+    column-gap: 15px;
+}
 
 .gallery img {
     width: 100%;
