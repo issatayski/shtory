@@ -1,3 +1,126 @@
+/* HEADER BASE */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: #ffffff; /* Чтобы поставить картинку: url('img.jpg') center/cover */
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+.header-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.logo strong { font-size: 20px; font-family: 'Montserrat'; }
+.logo-slogan { font-size: 12px; color: #666; }
+
+/* DESKTOP NAV */
+.nav-desktop { display: flex; align-items: center; gap: 25px; }
+.nav-desktop a {
+    text-decoration: none;
+    color: #1E1E1E;
+    font-weight: 500;
+    font-size: 14px;
+    transition: 0.3s;
+}
+.nav-desktop a:hover { color: #0DB14B; }
+
+.btn-call {
+    background: #1E1E1E;
+    color: #fff !important;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px !important;
+}
+
+/* MOBILE TOGGLE (HAMBURGER) */
+.menu-toggle {
+    display: none;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #1e1e1e;
+    position: absolute;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-toggle span:first-child { top: 0; }
+.menu-toggle span:last-child { bottom: 0; }
+
+/* Active State for Hamburger */
+.menu-toggle.active span:first-child { transform: translateY(9px) rotate(45deg); }
+.menu-toggle.active span:last-child { transform: translateY(-9px) rotate(-45deg); }
+
+/* MOBILE OVERLAY */
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-overlay.active { transform: translateY(0); }
+
+.mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.mobile-nav-list a {
+    font-family: 'Montserrat';
+    font-size: 28px;
+    text-decoration: none;
+    color: #1e1e1e;
+    font-weight: 700;
+}
+
+.mobile-call { color: #0DB14B !important; }
+
+/* ADJUST HERO (отступ под шапку) */
+.hero { margin-top: 0; } 
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .nav-desktop { display: none; }
+    .menu-toggle { display: block; }
+    .logo-slogan { display: none; }
+}
+
+
+
 /* RESET & BASE */
 * {
     margin: 0;

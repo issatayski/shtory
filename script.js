@@ -132,3 +132,23 @@ function closeModal() {
   video.src = ''; // очищаем
   progressBar.style.width = '0%';
 }
+
+// Логика мобильного меню
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+function toggleMenu() {
+    menuToggle.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    
+    // Блокируем скролл при открытом меню
+    if (mobileMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+
+menuToggle.addEventListener('click', toggleMenu);
+
+// Закрытие меню при клике на ссылку (уже добавлено в HTML через onclick)
