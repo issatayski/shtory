@@ -73,3 +73,40 @@ function sendQuiz() {
     
     window.open(whatsappUrl, '_blank');
 }
+
+const btn = document.getElementById('openVideo');
+const modal = document.getElementById('modal');
+const video = document.getElementById('video');
+const progressBar = document.getElementById('progressBar');
+
+btn.addEventListener('click', () => {
+  modal.classList.add('active');
+  document.body.classList.add('modal-open');
+
+  video.currentTime = 0;
+  video.play();
+});
+
+// прогресс
+video.addEventListener('timeupdate', () => {
+  const percent = (video.currentTime / video.duration) * 100;
+  progressBar.style.width = percent + '%';
+});
+
+// конец видео
+video.addEventListener('ended', () => {
+  closeModal();
+});
+
+// закрытие
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    closeModal();
+  }
+});
+
+function closeModal() {
+  modal.classList.remove('active');
+  document.body.classList.remove('modal-open');
+  video.pause();
+}
