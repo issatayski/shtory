@@ -498,18 +498,13 @@ h1, h2, h3 {
 }
 
 .review {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.05);
+    font-style: italic;
 }
 
-.review img {
-    width: 80%;   /* регулируй размер */
-    object-fit: contain;
-    transition: transform 0.3s ease;
-	
 
 
 /* ABOUT */
