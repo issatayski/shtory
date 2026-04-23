@@ -456,17 +456,28 @@ h1, h2, h3 {
 
 /* PROCESS */
 .process {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 20px;
-    text-align: center;
 }
 
 .step {
-    background: #fff;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.05);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.step img {
+    width: 100px;   /* регулируй размер */
+    height: 79px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.step img:hover {
+    transform: scale(1.1);
 }
 
 /* REVIEWS */
