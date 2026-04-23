@@ -96,11 +96,24 @@
             </div>
 
             <div class="quiz-step" data-step="4">
-                <h3>Контакт</h3>
-                <input id="phone" type="tel" placeholder="Ваш телефон">
-                <br><br>
-                <button class="btn btn-accent" onclick="sendQuiz()">Получить подбор</button>
-            </div>
+					<h3>Остался последний шаг 👇</h3>
+
+					<p class="quiz-final-text">
+						Отправим вам подборку решений и пример стоимости в WhatsApp
+						<br><span>Без звонков. Быстро и удобно.</span>
+					</p>
+
+					<button class="btn btn-accent quiz-wa-btn" onclick="sendQuiz()">
+						Получить подборку в WhatsApp
+					</button>
+
+					<div class="quiz-trust">
+						<span>🔒 Только полезная информация</span>
+						<span>⏱ Ответим за 5–10 минут</span>
+					</div>
+
+					<div id="quizLoader" class="quiz-loader">Подбираем решения для вас...</div>
+			</div>
         </div>
     </section>
 

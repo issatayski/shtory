@@ -21,7 +21,13 @@ const totalSteps = 4;
  */
 function selectAnswer(stepNum, value) {
     quizData[stepNum] = value;
-    nextStep();
+
+    const stepEl = document.querySelector(`.quiz-step[data-step="${stepNum}"]`);
+    stepEl.style.opacity = '0.6';
+
+    setTimeout(() => {
+        nextStep();
+    }, 250);
 }
 
 /**
@@ -56,22 +62,24 @@ function updateProgressBar() {
  * Сбор данных и отправка в WhatsApp
  */
 function sendQuiz() {
-    const phone = document.getElementById('phone').value;
-    
-    if (!phone) {
-        alert('Пожалуйста, введите ваш номер телефона');
-        return;
-    }
 
-    const message = `Новая заявка (Подбор дизайна):%0A` +
+    const loader = document.getElementById('quizLoader');
+    loader.style.display = 'block';
+
+    // формируем сообщение
+    const message = `Здравствуйте! Я прошёл квиз:%0A%0A` +
                     `— Стиль: ${quizData[1]}%0A` +
                     `— Помещение: ${quizData[2]}%0A` +
-                    `— Изделие: ${quizData[3]}%0A` +
-                    `— Телефон: ${phone}`;
+                    `— Интерес: ${quizData[3]}%0A%0A` +
+                    `Подберите, пожалуйста, варианты и пример стоимости.`;
 
-    const whatsappUrl = `https://wa.me/77000000000?text=${message}`;
-    
-    window.open(whatsappUrl, '_blank');
+    const whatsappUrl = `https://wa.me/77754046186?text=${message}`;
+
+    // небольшая задержка для UX
+    setTimeout(() => {
+        window.open(whatsappUrl, '_blank');
+        loader.style.display = 'none';
+    }, 900);
 }
 
 const previews = document.querySelectorAll('.video-preview');

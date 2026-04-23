@@ -330,6 +330,51 @@ h1, h2, h3 {
     margin-top: 10px;
 }
 
+
+
+/* ФИНАЛ КВИЗА */
+.quiz-final-text {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.quiz-final-text span {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.quiz-wa-btn {
+    width: 100%;
+    font-size: 16px;
+    padding: 16px;
+    margin-top: 10px;
+}
+
+.quiz-trust {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-top: 15px;
+    opacity: 0.7;
+}
+
+.quiz-loader {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 500;
+    color: #0DB14B;
+    animation: fadePulse 1s infinite alternate;
+}
+
+@keyframes fadePulse {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+
 /* CATALOG */
 .catalog .grid {
     display: grid;
