@@ -231,7 +231,7 @@ h1, h2, h3 {
 
 /* HERO SECTION */
 .hero {
-    background: url('https://images.unsplash.com/photo-1505691938895-1758d7feb511') center/cover no-repeat;
+    background: url('./img/background.jpg') center/cover no-repeat;
     min-height: 100vh;
     display: flex;
     align-items: center;
