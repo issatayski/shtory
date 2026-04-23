@@ -290,6 +290,15 @@
 .call { background: #1E1E1E; }
 .wa { background: #0DB14B; }
     </style>
+	
+/* DESKTOP STICKY */
+@media(min-width: 1024px) {
+    .sticky {
+        display: none;
+    }
+    
+}	
+	
 </head>
 <body>
 
@@ -463,6 +472,29 @@ document.getElementById("xg_order_btn").onclick = function(){
     let text = encodeURIComponent("Здравствуйте! Хочу заказать: " + currentImgSrc);
     window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
 }
+
+
+// Логика мобильного меню
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+function toggleMenu() {
+    menuToggle.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    
+    // Блокируем скролл при открытом меню
+    if (mobileMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+
+menuToggle.addEventListener('click', toggleMenu);
+
+
+
+
 </script>
 
 <div class="sticky">
