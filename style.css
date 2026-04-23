@@ -201,7 +201,8 @@ body {
 
 h1, h2, h3 {
     font-family: 'Montserrat', sans-serif;
-    margin-bottom: 20px;
+    margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 .container {
