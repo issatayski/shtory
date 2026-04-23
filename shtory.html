@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Clean Infinite Catalog</title>
+    <title>Fixed Grid Infinite Catalog</title>
     <style>
         :root {
             --card-w: 260px;
             --card-h: 380px;
-            --gap: 25px;
+            --gap: 30px;
             --accent: #25D366;
         }
 
@@ -17,7 +17,7 @@
             width: 100%; height: 100%;
             overflow: hidden;
             background: #080a0f;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         #viewport {
@@ -41,19 +41,11 @@
             width: var(--card-w);
             height: var(--card-h);
             background: #111;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, border-color 0.3s;
-            opacity: 0;
-            transform: scale(0.9);
-            border: 1px solid rgba(255,255,255,0.08);
-            backface-visibility: hidden;
-        }
-
-        .xg_item.visible {
-            opacity: 1;
-            transform: scale(1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: opacity 0.5s ease, border-color 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .xg_item:hover {
@@ -65,11 +57,6 @@
             width: 100%; height: 100%;
             object-fit: cover;
             pointer-events: none;
-            transition: transform 0.5s ease;
-        }
-
-        .xg_item:hover img {
-            transform: scale(1.05);
         }
 
         /* МОДАЛКА */
@@ -82,19 +69,19 @@
         }
 
         .xg_modal_content {
-            background: #1a1e26; padding: 25px; border-radius: 24px;
+            background: #1a1e26; padding: 25px; border-radius: 20px;
             text-align: center; max-width: 340px; width: 90%;
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .xg_modal_content img { width: 100%; border-radius: 12px; margin-bottom: 20px; }
+        .xg_modal_content img { width: 100%; border-radius: 10px; margin-bottom: 20px; }
 
         .xg_btn {
-            padding: 16px; width: 100%; border: none; border-radius: 12px;
+            padding: 16px; width: 100%; border: none; border-radius: 10px;
             cursor: pointer; font-size: 16px; font-weight: 600; margin-bottom: 10px;
         }
         .xg_order { background: var(--accent); color: #fff; }
-        .xg_close { background: #2d333f; color: #a0a6b3; }
+        .xg_close { background: #333; color: #ccc; }
     </style>
 </head>
 <body>
@@ -106,12 +93,13 @@
 <div class="xg_modal" id="xg_modal">
     <div class="xg_modal_content">
         <img id="xg_modal_img" src="">
-        <button class="xg_btn xg_order" id="xg_order_btn">Заказать в WhatsApp</button>
+        <button class="xg_btn xg_order" id="xg_order_btn">WhatsApp Заказ</button>
         <button class="xg_btn xg_close" onclick="closeModal()">Закрыть</button>
     </div>
 </div>
 
 <script>
+// Добавляйте сюда столько картинок, сколько нужно
 const IMAGES = [
     "https://images.unsplash.com/photo-1582582429416-8a5d3c4a3d10?w=500",
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500",
@@ -124,87 +112,69 @@ const IMAGES = [
 ];
 
 const world = document.getElementById('world');
-const cardW = 260, cardH = 380, gap = 25;
+const cardW = 260, cardH = 380, gap = 30;
 const stepX = cardW + gap, stepY = cardH + gap;
 
-const cols = Math.ceil(window.innerWidth / stepX) + 2;
-const rows = Math.ceil(window.innerHeight / stepY) + 2;
+// Определяем оптимальное количество колонок на основе количества картинок
+// (Например, делаем сетку шириной в 3 колонки, высота выстроится автоматически)
+const colsCount = 3;
+const rowsCount = Math.ceil(IMAGES.length / colsCount);
+
 const items = [];
 
-// Функция умного выбора картинки (чтобы не было одинаковых рядом)
-function getRandomImage(excludeSrc) {
-    let available = IMAGES.filter(img => img !== excludeSrc);
-    return available[Math.floor(Math.random() * available.length)];
-}
+// Создаем карточки строго по списку
+IMAGES.forEach((src, index) => {
+    const r = Math.floor(index / colsCount);
+    const c = index % colsCount;
 
-// Создание сетки
-let lastAddedSrc = "";
-for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-        const el = document.createElement('div');
-        el.className = 'xg_item';
-        const img = document.createElement('img');
-        
-        const src = getRandomImage(lastAddedSrc);
-        lastAddedSrc = src;
-        
-        img.src = src;
-        el.appendChild(img);
-        
-        el.addEventListener('click', () => {
-            if (isMoving) return;
-            openModal(src);
-        });
+    const el = document.createElement('div');
+    el.className = 'xg_item';
+    const img = document.createElement('img');
+    img.src = src;
+    el.appendChild(img);
+    
+    el.addEventListener('click', () => {
+        if (isMoving) return;
+        openModal(src);
+    });
 
-        world.appendChild(el);
-        const item = { el, x: c * stepX, y: r * stepY, src: src };
-        items.push(item);
-
-        setTimeout(() => el.classList.add('visible'), (r + c) * 60);
-    }
-}
+    world.appendChild(el);
+    const item = { el, x: c * stepX, y: r * stepY, src: src };
+    items.push(item);
+    
+    // Плавное появление
+    setTimeout(() => el.style.opacity = "1", index * 50);
+});
 
 let worldX = 0, worldY = 0;
 let startX, startY, isDragging = false, isMoving = false;
+
+// Размеры всей области сетки
+const gridWidth = colsCount * stepX;
+const gridHeight = rowsCount * stepY;
 
 function update() {
     items.forEach(item => {
         let realX = item.x + worldX;
         let realY = item.y + worldY;
 
-        const fullW = cols * stepX;
-        const fullH = rows * stepY;
+        // Бесконечный перенос по горизонтали
+        if (realX < -stepX) item.x += gridWidth;
+        if (realX > window.innerWidth + (gridWidth - window.innerWidth)) item.x -= gridWidth;
 
-        // Когда карточка улетает за границу, меняем ей картинку на новую рандомную
-        if (realX < -stepX) {
-            item.x += fullW;
-            item.src = getRandomImage(item.src);
-            item.el.querySelector('img').src = item.src;
-        }
-        if (realX > window.innerWidth + stepX) {
-            item.x -= fullW;
-            item.src = getRandomImage(item.src);
-            item.el.querySelector('img').src = item.src;
-        }
-        if (realY < -stepY) {
-            item.y += fullH;
-            item.src = getRandomImage(item.src);
-            item.el.querySelector('img').src = item.src;
-        }
-        if (realY > window.innerHeight + stepY) {
-            item.y -= fullH;
-            item.src = getRandomImage(item.src);
-            item.el.querySelector('img').src = item.src;
-        }
+        // Бесконечный перенос по вертикали
+        if (realY < -stepY) item.y += gridHeight;
+        if (realY > window.innerHeight + (gridHeight - window.innerHeight)) item.y -= gridHeight;
 
         item.el.style.transform = `translate3d(${item.x}px, ${item.y}px, 0)`;
     });
     world.style.transform = `translate3d(${worldX}px, ${worldY}px, 0)`;
 }
 
+// Запуск начальной позиции
 update();
 
-/* === EVENTS === */
+/* === УПРАВЛЕНИЕ === */
 const handleStart = (e) => {
     isDragging = true;
     isMoving = false;
@@ -224,7 +194,7 @@ const handleMove = (e) => {
 
 const handleEnd = () => {
     isDragging = false;
-    setTimeout(() => isMoving = false, 100);
+    setTimeout(() => isMoving = false, 50);
 };
 
 window.addEventListener('mousedown', handleStart);
@@ -234,7 +204,7 @@ window.addEventListener('touchstart', handleStart, {passive: false});
 window.addEventListener('touchmove', handleMove, {passive: false});
 window.addEventListener('touchend', handleEnd);
 
-/* === MODAL === */
+/* === МОДАЛКА === */
 let currentImgSrc = "";
 function openModal(src) {
     currentImgSrc = src;
@@ -246,7 +216,7 @@ function closeModal() {
 }
 document.getElementById("xg_order_btn").onclick = function(){
     let phone = "77000000000"; 
-    let text = encodeURIComponent("Хочу заказать: " + currentImgSrc);
+    let text = encodeURIComponent("Здравствуйте! Хочу заказать: " + currentImgSrc);
     window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
 }
 </script>
