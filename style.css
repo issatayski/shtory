@@ -505,6 +505,18 @@ h1, h2, h3 {
     font-style: italic;
 }
 
+.review img {
+    width: 80%;   /* регулируй размер */
+    object-fit: contain;
+    transition: transform 0.3s ease;
+	
+/* 📱 Мобилка — 2 в ряд */
+@media (max-width: 600px) {
+    .reviews {
+        grid-template-columns: repeat(2, 1fr);
+    }
+	
+
 /* ABOUT */
 .about {
     display: grid;
