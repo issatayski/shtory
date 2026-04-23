@@ -471,8 +471,7 @@ h1, h2, h3 {
 }
 
 .step img {
-    width: 200px;   /* регулируй размер */
-    height: 169px;
+    width: 100%;   /* регулируй размер */
     object-fit: contain;
     transition: transform 0.3s ease;
 }
@@ -485,15 +484,10 @@ h1, h2, h3 {
     .process {
         grid-template-columns: repeat(2, 1fr);
     }
-}
 
-/* 📲 Планшет — 3 в ряд */
-@media (min-width: 601px) and (max-width: 992px) {
-    .process {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}	
-}
+
+	
+
 
 /* REVIEWS */
 .reviews .grid {
