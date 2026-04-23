@@ -1,1 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Каталог</title>
 
+<style>
+/* === УНИКАЛЬНЫЕ СТИЛИ (xg_) === */
+
+.xg_body {
+    margin:0;
+    background:#0b0f1a;
+    overflow:hidden;
+    font-family: Arial, sans-serif;
+}
+
+.xg_scene {
+    width:100vw;
+    height:100vh;
+    perspective:1200px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.xg_sphere {
+    width:400px;
+    height:400px;
+    position:relative;
+    transform-style:preserve-3d;
+    animation: xg_spin 20s linear infinite;
+}
+
+@keyframes xg_spin {
+    0% { transform: rotateX(0deg) rotateY(0deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+.xg_item {
+    position:absolute;
+    width:120px;
+    height:80px;
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+    transition:transform 0.3s;
+}
+
+.xg_item:hover {
+    transform:scale(1.2);
+}
+
+.xg_item img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* === МОДАЛКА === */
+
+.xg_modal {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+}
+
+.xg_modal_content {
+    background:#fff;
+    padding:20px;
+    border-radius:16px;
+    text-align:center;
+    max-width:300px;
+    width:90%;
+}
+
+.xg_modal_content img {
+    width:100%;
+    border-radius:10px;
+}
+
+.xg_btn {
+    margin-top:10px;
+    padding:12px;
+    width:100%;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.xg_order {
+    background:#25D366;
+    color:#fff;
+}
+
+.xg_close {
+    background:#ddd;
+}
+</style>
+</head>
+
+<body class="xg_body">
+
+<div class="xg_scene">
+    <div class="xg_sphere" id="xg_sphere"></div>
+</div>
+
+<!-- МОДАЛКА -->
+<div class="xg_modal" id="xg_modal">
+    <div class="xg_modal_content">
+        <img id="xg_modal_img">
+        <button class="xg_btn xg_order" id="xg_order_btn">Заказать</button>
+        <button class="xg_btn xg_close" onclick="xg_closeModal()">Закрыть</button>
+    </div>
+</div>
+
+<script>
+/* === УНИКАЛЬНЫЙ JS (xg_) === */
+
+const xg_images = [
+    "https://images.unsplash.com/photo-1582582429416-8a5d3c4a3d10",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+    "https://images.unsplash.com/photo-1598300053653-8a77e0f0a8c2",
+    "https://images.unsplash.com/photo-1616627456487-7d46f0c1e9f1",
+    "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf",
+    "https://images.unsplash.com/photo-1615874959474-d609969a20ed",
+    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7",
+    "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91"
+];
+
+const xg_sphere = document.getElementById("xg_sphere");
+
+/* === РАЗМЕЩЕНИЕ НА СФЕРЕ === */
+xg_images.forEach((src, i) => {
+    let el = document.createElement("div");
+    el.className = "xg_item";
+
+    let img = document.createElement("img");
+    img.src = src;
+
+    el.appendChild(img);
+
+    // случайное расположение по сфере
+    let theta = Math.random() * 2 * Math.PI;
+    let phi = Math.acos((Math.random() * 2) - 1);
+    let r = 180;
+
+    let x = r * Math.sin(phi) * Math.cos(theta);
+    let y = r * Math.sin(phi) * Math.sin(theta);
+    let z = r * Math.cos(phi);
+
+    el.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+
+    el.onclick = () => xg_openModal(src);
+
+    xg_sphere.appendChild(el);
+});
+
+/* === СЛУЧАЙНАЯ ОСЬ ВРАЩЕНИЯ === */
+const xg_axes = [
+    "rotateX(360deg) rotateY(360deg)",
+    "rotateY(360deg)",
+    "rotateX(360deg)",
+    "rotateZ(360deg) rotateY(360deg)"
+];
+
+xg_sphere.style.animation = `xg_spin 20s linear infinite`;
+
+setInterval(() => {
+    let randomAxis = xg_axes[Math.floor(Math.random()*xg_axes.length)];
+    xg_sphere.style.transform = randomAxis;
+}, 5000);
+
+/* === МОДАЛКА === */
+
+let xg_currentImg = "";
+
+function xg_openModal(src){
+    xg_currentImg = src;
+    document.getElementById("xg_modal_img").src = src;
+    document.getElementById("xg_modal").style.display = "flex";
+}
+
+function xg_closeModal(){
+    document.getElementById("xg_modal").style.display = "none";
+}
+
+/* === WHATSAPP === */
+
+document.getElementById("xg_order_btn").onclick = function(){
+    let text = encodeURIComponent("Хочу заказать: " + xg_currentImg);
+    let phone = "77000000000"; // ← ВСТАВЬ СВОЙ НОМЕР
+    let url = `https://wa.me/${phone}?text=${text}`;
+    window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
