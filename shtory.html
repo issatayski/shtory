@@ -2,236 +2,244 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Infinite 2D Catalog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity Cloud Catalog</title>
     <style>
-        :root {
-            --card-w: 250px;
-            --card-h: 350px;
-            --gap: 20px;
-        }
-
-        body, html {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
+        body {
+            margin: 0;
+            background: #05080a;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
             overflow: hidden;
-            background: #05070a;
-            font-family: sans-serif;
+            touch-action: none; /* Важно для мобилок */
         }
 
-        /* Контейнер-сцена */
-        #viewport {
+        #xg_container {
             width: 100vw;
             height: 100vh;
             position: relative;
             cursor: grab;
-            perspective: 1000px;
-        }
-
-        #viewport:active { cursor: grabbing; }
-
-        /* Мир, в котором лежат картинки */
-        #world {
-            position: absolute;
-            top: 0; left: 0;
-            will-change: transform;
+            overflow: hidden;
         }
 
         .xg_item {
             position: absolute;
-            width: var(--card-w);
-            height: var(--card-h);
-            background: #1a1a1a;
+            width: 200px;
+            height: 140px;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
-            opacity: 0;
-            transform: scale(0.5) translateY(50px);
-            user-select: none;
-            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, opacity 0.6s ease;
+            opacity: 0; /* Для анимации появления */
+            will-change: transform;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Класс для анимации появления */
-        .xg_item.visible {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-
-        .xg_item:hover {
-            z-index: 100 !important;
-            border-color: #25D366;
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
-        }
+        .xg_item.visible { opacity: 1; }
 
         .xg_item img {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            pointer-events: none; /* Чтобы не мешать Drag-событиям */
+            pointer-events: none;
         }
 
         /* МОДАЛКА */
         .xg_modal {
             position: fixed;
-            top:0; left:0; width:100%; height:100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9);
-            display: none; align-items: center; justify-content: center;
-            z-index: 9999; backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            backdrop-filter: blur(10px);
         }
 
         .xg_modal_content {
-            background: #111; padding: 20px; border-radius: 20px;
-            text-align: center; max-width: 320px; width: 90%;
-            border: 1px solid #333;
+            background: #1a1f26;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
         }
 
         .xg_modal_content img { width: 100%; border-radius: 12px; margin-bottom: 15px; }
 
         .xg_btn {
-            padding: 14px; width: 100%; border: none; border-radius: 10px;
+            padding: 12px; width: 100%; border: none; border-radius: 10px;
             cursor: pointer; font-size: 16px; font-weight: bold; margin-bottom: 10px;
         }
-        .xg_order { background: #25D366; color: #fff; }
-        .xg_close { background: #222; color: #bbb; }
+        .xg_order { background: #25D366; color: white; }
+        .xg_close { background: #333; color: #ccc; }
     </style>
 </head>
 <body>
 
-<div id="viewport">
-    <div id="world"></div>
-</div>
+<div id="xg_container"></div>
 
 <div class="xg_modal" id="xg_modal">
     <div class="xg_modal_content">
         <img id="xg_modal_img" src="">
-        <button class="xg_btn xg_order" id="xg_order_btn">WhatsApp Заказ</button>
-        <button class="xg_btn xg_close" onclick="closeModal()">Закрыть</button>
+        <button class="xg_btn xg_order" id="xg_order_btn">Заказать в WhatsApp</button>
+        <button class="xg_btn xg_close" onclick="xg_closeModal()">Закрыть</button>
     </div>
 </div>
 
 <script>
-const IMAGES = [
+const xg_images = [
     "https://images.unsplash.com/photo-1582582429416-8a5d3c4a3d10?w=400",
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400",
     "https://images.unsplash.com/photo-1598300053653-8a77e0f0a8c2?w=400",
     "https://images.unsplash.com/photo-1616627456487-7d46f0c1e9f1?w=400",
     "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=400",
-    "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400"
+    "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400",
+    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400",
+    "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400"
 ];
 
-const world = document.getElementById('world');
-const cardW = 250, cardH = 350, gap = 25;
-const stepX = cardW + gap, stepY = cardH + gap;
+const container = document.getElementById('xg_container');
+const itemW = 220; // ширина + отступ
+const itemH = 160; // высота + отступ
 
-// Определяем размер сетки (чуть больше экрана для бесшовности)
-const cols = Math.ceil(window.innerWidth / stepX) + 2;
-const rows = Math.ceil(window.innerHeight / stepY) + 2;
-const items = [];
+let offsetX = 0;
+let offsetY = 0;
+let items = [];
 
-// Создание сетки
-for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-        const el = document.createElement('div');
-        el.className = 'xg_item';
-        const img = document.createElement('img');
-        const src = IMAGES[(r * cols + c) % IMAGES.length];
-        img.src = src;
-        el.appendChild(img);
-        
-        // Клик теперь работает корректно
-        el.addEventListener('click', (e) => {
-            if (isMoving) return; // Не открывать при перетаскивании
-            openModal(src);
-        });
+// Создаем сетку, которая чуть больше экрана
+const rows = Math.ceil(window.innerHeight / itemH) + 2;
+const cols = Math.ceil(window.innerWidth / itemW) + 2;
 
-        world.appendChild(el);
-
-        const item = {
-            el,
-            x: c * stepX,
-            y: r * stepY,
-            src: src
-        };
-        items.push(item);
-
-        // Анимация появления с задержкой
-        setTimeout(() => el.classList.add('visible'), (r + c) * 100);
+function init() {
+    for (let r = -1; r < rows; r++) {
+        for (let c = -1; c < cols; c++) {
+            createItem(c * itemW, r * itemH);
+        }
     }
 }
 
-/* === ЛОГИКА ДВИЖЕНИЯ === */
-let worldX = 0, worldY = 0;
-let startX, startY, isDragging = false, isMoving = false;
+function createItem(x, y) {
+    const el = document.createElement('div');
+    el.className = 'xg_item';
+    const img = document.createElement('img');
+    
+    // Рандомная картинка
+    const src = xg_images[Math.floor(Math.random() * xg_images.length)];
+    img.src = src;
+    el.appendChild(img);
+    container.appendChild(el);
+
+    const item = { el, x, y, src };
+    items.push(item);
+
+    // Анимация появления
+    setTimeout(() => el.classList.add('visible'), Math.random() * 500);
+
+    // Клик с защитой от сдвига
+    let startClickX, startClickY;
+    el.onmousedown = (e) => { startClickX = e.clientX; startClickY = e.clientY; };
+    el.onmouseup = (e) => {
+        if (Math.abs(e.clientX - startClickX) < 5 && Math.abs(e.clientY - startClickY) < 5) {
+            xg_openModal(item.src);
+        }
+    };
+    // Для мобильных
+    el.ontouchstart = (e) => { 
+        startClickX = e.touches[0].clientX; 
+        startClickY = e.touches[0].clientY; 
+    };
+    el.ontouchend = (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const endY = e.changedTouches[0].clientY;
+        if (Math.abs(endX - startClickX) < 10 && Math.abs(endY - startClickY) < 10) {
+            xg_openModal(item.src);
+        }
+    };
+}
 
 function update() {
     items.forEach(item => {
-        let realX = item.x + worldX;
-        let realY = item.y + worldY;
+        let screenX = item.x + offsetX;
+        let screenY = item.y + offsetY;
 
-        const fullW = cols * stepX;
-        const fullH = rows * stepY;
+        // Бесконечное перемещение по X
+        const fullW = cols * itemW;
+        if (screenX < -itemW) item.x += fullW;
+        if (screenX > window.innerWidth + itemW) item.x -= fullW;
 
-        // Бесконечное зацикливание X
-        if (realX < -stepX) item.x += fullW;
-        if (realX > window.innerWidth + stepX) item.x -= fullW;
-        
-        // Бесконечное зацикливание Y
-        if (realY < -stepY) item.y += fullH;
-        if (realY > window.innerHeight + stepY) item.y -= fullH;
+        // Бесконечное перемещение по Y
+        const fullH = rows * itemH;
+        if (screenY < -itemH) item.y += fullH;
+        if (screenY > window.innerHeight + itemH) item.y -= fullH;
 
-        item.el.style.transform = `translate3d(${item.x}px, ${item.y}px, 0)`;
+        item.el.style.transform = `translate3d(${screenX}px, ${screenY}px, 0)`;
     });
-    world.style.transform = `translate3d(${worldX}px, ${worldY}px, 0)`;
 }
 
-// Первичная отрисовка
-update();
+/* === УПРАВЛЕНИЕ === */
+let isDragging = false;
+let lastX, lastY;
 
-/* === EVENTS === */
-const start = (e) => {
+const startDrag = (e) => {
     isDragging = true;
-    isMoving = false;
-    const t = e.touches ? e.touches[0] : e;
-    startX = t.clientX - worldX;
-    startY = t.clientY - worldY;
+    lastX = e.clientX || e.touches[0].clientX;
+    lastY = e.clientY || e.touches[0].clientY;
+    container.style.cursor = 'grabbing';
 };
 
-const move = (e) => {
+const moveDrag = (e) => {
     if (!isDragging) return;
-    isMoving = true;
-    const t = e.touches ? e.touches[0] : e;
-    worldX = t.clientX - startX;
-    worldY = t.clientY - startY;
+    const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+    const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+    
+    offsetX += x - lastX;
+    offsetY += y - lastY;
+    
+    lastX = x;
+    lastY = y;
     update();
 };
 
-const end = () => {
+const stopDrag = () => {
     isDragging = false;
-    // Небольшой тайм-аут, чтобы клик не срабатывал сразу после Drag
-    setTimeout(() => isMoving = false, 50);
+    container.style.cursor = 'grab';
 };
 
-window.addEventListener('mousedown', start);
-window.addEventListener('mousemove', move);
-window.addEventListener('mouseup', end);
-window.addEventListener('touchstart', start);
-window.addEventListener('touchmove', move);
-window.addEventListener('touchend', end);
+window.addEventListener('mousedown', startDrag);
+window.addEventListener('mousemove', moveDrag);
+window.addEventListener('mouseup', stopDrag);
+window.addEventListener('touchstart', startDrag);
+window.addEventListener('touchmove', moveDrag);
+window.addEventListener('touchend', stopDrag);
 
-/* === MODAL & WHATSAPP === */
-let currentImg = "";
-function openModal(src) {
-    currentImg = src;
-    document.getElementById('xg_modal_img').src = src;
-    document.getElementById('xg_modal').style.display = 'flex';
+/* === АВТО-ДВИЖЕНИЕ (на искосок) === */
+function autoAnimate() {
+    if (!isDragging) {
+        offsetX -= 0.3;
+        offsetY -= 0.2;
+        update();
+    }
+    requestAnimationFrame(autoAnimate);
 }
-function closeModal() {
-    document.getElementById('xg_modal').style.display = 'none';
+
+/* === МОДАЛКА === */
+let xg_currentImg = "";
+function xg_openModal(src){
+    xg_currentImg = src;
+    document.getElementById("xg_modal_img").src = src;
+    document.getElementById("xg_modal").style.display = "flex";
+}
+function xg_closeModal(){
+    document.getElementById("xg_modal").style.display = "none";
 }
 document.getElementById("xg_order_btn").onclick = function(){
-    let text = encodeURIComponent("Заказ товара: " + currentImg);
+    let text = encodeURIComponent("Заказ товара: " + xg_currentImg);
     window.open(`https://wa.me/77000000000?text=${text}`, "_blank");
 }
+
+init();
+autoAnimate();
 </script>
 </body>
 </html>
