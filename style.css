@@ -379,8 +379,8 @@ h1, h2, h3 {
 .card {
     position: relative;
     display: inline-block; /* Или flex, зависит от сетки */
-    width: 300px;         /* Ширина для примера */
-    height: 200px;        /* Высота для примера */
+             /* width: 300px; Ширина для примера */
+            /* height: 200px; Высота для примера */
     border-radius: 12px;
     overflow: hidden;
     text-decoration: none; /* Убираем подчеркивание ссылки */
