@@ -471,7 +471,7 @@ h1, h2, h3 {
 }
 
 .step img {
-    width: 100%;   /* регулируй размер */
+    width: 80%;   /* регулируй размер */
     object-fit: contain;
     transition: transform 0.3s ease;
 }
