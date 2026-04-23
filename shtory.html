@@ -3,12 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-     <title>Каталог работ</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
+    <title>Fixed Grid Infinite Catalog</title>
     <style>
         :root {
             --card-w: 260px;
@@ -90,39 +85,7 @@
     </style>
 </head>
 <body>
-<header class="header">
-						<div class="container header-wrap">
-							<div class="logo">
-								<a href="/"><img src="./img/logotip.png" alt="Жалюзи и Ролл-шторы" class="logo-img"></a>
-								<span class="logo-slogan">Стиль в каждом окне</span>
-							</div>
 
-							<nav class="nav-desktop">
-								<a href="#quiz">Подбор дизайна</a>
-								<a href="#gallery">Галерея</a>
-								<a href="#contact">Контакты</a>
-								<a href="tel:+77000000000" class="btn-call">Позвонить</a>
-							</nav>
-
-							<div class="menu-toggle" id="menuToggle">
-								<span></span>
-								<span></span>
-							</div>
-						</div>
-					</header>
-
-					<div class="mobile-overlay" id="mobileMenu">
-					       <div class="mobile-close" onclick="toggleMenu()">
-								<span></span>
-								<span></span>
-							</div>
-						<nav class="mobile-nav-list">
-							<a href="#quiz" onclick="toggleMenu()">Подбор дизайна</a>
-							<a href="#gallery" onclick="toggleMenu()">Галерея</a>
-							<a href="#contact" onclick="toggleMenu()">Контакты</a>
-							<a href="tel:+77000000000" class="mobile-call">Позвонить</a>
-						</nav>
-					</div>
 <div id="viewport">
     <div id="world"></div>
 </div>
@@ -257,14 +220,5 @@ document.getElementById("xg_order_btn").onclick = function(){
     window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
 }
 </script>
-
-<div class="sticky">
-        <a href="tel:+77000000000" class="call">📞</a>
-        <a href="https://wa.me/77000000000" class="wa">💬</a>
-    </div>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
-
 </body>
 </html>
