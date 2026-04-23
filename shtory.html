@@ -1,220 +1,214 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Каталог</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Сфера Каталог V2</title>
+    <style>
+        body {
+            margin: 0;
+            background: #0b0f1a;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
 
-<style>
-.xg_body {
-    margin:0;
-    background:#0b0f1a;
-    overflow:hidden;
-    font-family: Arial, sans-serif;
-}
+        .xg_scene {
+            width: 100vw;
+            height: 100vh;
+            perspective: 1000px; /* Глубина обзора */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.xg_scene {
-    width:100vw;
-    height:100vh;
-    perspective:1200px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
+        .xg_sphere {
+            width: 0;
+            height: 0;
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: grab;
+            will-change: transform;
+        }
 
-.xg_sphere {
-    width:400px;
-    height:400px;
-    position:relative;
-    transform-style:preserve-3d;
-    cursor:grab;
-}
+        .xg_item {
+            position: absolute;
+            width: 140px;
+            height: 90px;
+            margin-left: -70px; /* Центрирование */
+            margin-top: -45px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s, opacity 0.3s;
+            backface-visibility: visible; /* Чтобы видеть "задние" картинки */
+            border: 1px solid rgba(255,255,255,0.1);
+        }
 
-.xg_item {
-    position:absolute;
-    width:120px;
-    height:80px;
-    border-radius:12px;
-    overflow:hidden;
-    cursor:pointer;
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
-    transition:transform 0.3s;
-}
+        .xg_item:hover {
+            transform: scale(1.3) !important;
+            z-index: 1000;
+            border-color: #25D366;
+        }
 
-.xg_item:hover {
-    transform:scale(1.2);
-}
+        .xg_item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-.xg_item img {
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
+        /* МОДАЛКА */
+        .xg_modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
 
-/* === МОДАЛКА === */
+        .xg_modal_content {
+            background: #1a1f2c;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            border: 1px solid #333;
+        }
 
-.xg_modal {
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.8);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:999;
-}
+        .xg_modal_content img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
 
-.xg_modal_content {
-    background:#fff;
-    padding:20px;
-    border-radius:16px;
-    text-align:center;
-    max-width:300px;
-    width:90%;
-}
+        .xg_btn {
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-.xg_modal_content img {
-    width:100%;
-    border-radius:10px;
-}
-
-.xg_btn {
-    margin-top:10px;
-    padding:12px;
-    width:100%;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:16px;
-}
-
-.xg_order {
-    background:#25D366;
-    color:#fff;
-}
-
-.xg_close {
-    background:#ddd;
-}
-</style>
+        .xg_order { background: #25D366; color: #fff; }
+        .xg_close { background: #333; color: #ccc; }
+    </style>
 </head>
-
-<body class="xg_body">
+<body>
 
 <div class="xg_scene">
     <div class="xg_sphere" id="xg_sphere"></div>
 </div>
 
-<!-- МОДАЛКА -->
 <div class="xg_modal" id="xg_modal">
     <div class="xg_modal_content">
-        <img id="xg_modal_img">
-        <button class="xg_btn xg_order" id="xg_order_btn">Заказать</button>
+        <img id="xg_modal_img" src="" alt="Товар">
+        <button class="xg_btn xg_order" id="xg_order_btn">Заказать в WhatsApp</button>
         <button class="xg_btn xg_close" onclick="xg_closeModal()">Закрыть</button>
     </div>
 </div>
 
 <script>
 const xg_images = [
-    "https://images.unsplash.com/photo-1582582429416-8a5d3c4a3d10",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-    "https://images.unsplash.com/photo-1598300053653-8a77e0f0a8c2",
-    "https://images.unsplash.com/photo-1616627456487-7d46f0c1e9f1",
-    "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf",
-    "https://images.unsplash.com/photo-1615874959474-d609969a20ed",
-    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7",
-    "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91"
+    "https://images.unsplash.com/photo-1582582429416-8a5d3c4a3d10?w=300",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=300",
+    "https://images.unsplash.com/photo-1598300053653-8a77e0f0a8c2?w=300",
+    "https://images.unsplash.com/photo-1616627456487-7d46f0c1e9f1?w=300",
+    "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=300",
+    "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=300",
+    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300",
+    "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=300",
+    "https://images.unsplash.com/photo-1513519247388-4a26d1888d17?w=300",
+    "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=300"
 ];
 
 const xg_sphere = document.getElementById("xg_sphere");
+const radius = 250; // Радиус сферы
+const count = xg_images.length;
 
-/* === СОЗДАНИЕ ШАРА === */
-xg_images.forEach((src) => {
+/* === РАСПРЕДЕЛЕНИЕ ПО ФИБОНАЧЧИ (РАВНОМЕРНО) === */
+xg_images.forEach((src, i) => {
     let el = document.createElement("div");
     el.className = "xg_item";
-
+    
     let img = document.createElement("img");
     img.src = src;
-
     el.appendChild(img);
 
-    let theta = Math.random() * 2 * Math.PI;
-    let phi = Math.acos((Math.random() * 2) - 1);
-    let r = 180;
+    // Математика золотого сечения для сферы
+    const phi = Math.acos(-1 + (2 * i) / count);
+    const theta = Math.sqrt(count * Math.PI) * phi;
 
-    let x = r * Math.sin(phi) * Math.cos(theta);
-    let y = r * Math.sin(phi) * Math.sin(theta);
-    let z = r * Math.cos(phi);
+    const x = radius * Math.sin(phi) * Math.cos(theta);
+    const y = radius * Math.sin(phi) * Math.sin(theta);
+    const z = radius * Math.cos(phi);
 
-    el.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+    // Вычисляем углы поворота, чтобы картинки смотрели от центра
+    const rotY = theta * (180 / Math.PI);
+    const rotX = (phi * (180 / Math.PI)) - 90;
+
+    el.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) rotateX(${-rotX}deg)`;
+    
+    // Эффект глубины (дальние объекты прозрачнее)
+    el.style.opacity = (z + radius) / (2 * radius) + 0.3;
 
     el.onclick = () => xg_openModal(src);
-
     xg_sphere.appendChild(el);
 });
 
-/* === СТАРТОВАЯ АНИМАЦИЯ === */
+/* === ЛОГИКА ВРАЩЕНИЯ (МЫШЬ + ТАЧ) === */
+let xg_rotX = 0, xg_rotY = 0;
+let isDragging = false;
+let lastX, lastY;
 
-let xg_rotX = 0;
-let xg_rotY = 0;
-
-function xg_intro() {
-    const duration = 2000 + Math.random() * 1000;
-
-    xg_rotX = 360;
-    xg_rotY = 360;
-
-    xg_sphere.style.transition = `transform ${duration}ms ease-out`;
-    xg_sphere.style.transform = `rotateX(${xg_rotX}deg) rotateY(${xg_rotY}deg)`;
-
-    setTimeout(() => {
-        xg_sphere.style.transition = "none";
-        xg_rotX = 0;
-        xg_rotY = 0;
-        xg_sphere.style.transform = `rotateX(0deg) rotateY(0deg)`;
-    }, duration);
+function startDrag(e) {
+    isDragging = true;
+    lastX = e.clientX || e.touches[0].clientX;
+    lastY = e.clientY || e.touches[0].clientY;
+    xg_sphere.style.cursor = "grabbing";
 }
 
-xg_intro();
-
-/* === DRAG ВРАЩЕНИЕ === */
-
-let xg_isDown = false;
-let xg_startX, xg_startY;
-
-xg_sphere.addEventListener("mousedown", (e) => {
-    xg_isDown = true;
-    xg_startX = e.clientX;
-    xg_startY = e.clientY;
-    xg_sphere.style.cursor = "grabbing";
-});
-
-window.addEventListener("mouseup", () => {
-    xg_isDown = false;
+function stopDrag() {
+    isDragging = false;
     xg_sphere.style.cursor = "grab";
-});
+}
 
-window.addEventListener("mousemove", (e) => {
-    if (!xg_isDown) return;
+function moveDrag(e) {
+    if (!isDragging) return;
+    const x = e.clientX || e.touches[0].clientX;
+    const y = e.clientY || e.touches[0].clientY;
+    
+    const dx = x - lastX;
+    const dy = y - lastY;
 
-    let dx = e.clientX - xg_startX;
-    let dy = e.clientY - xg_startY;
-
-    xg_rotY += dx * 0.3;
-    xg_rotX -= dy * 0.3;
+    xg_rotY += dx * 0.2;
+    xg_rotX -= dy * 0.2;
 
     xg_sphere.style.transform = `rotateX(${xg_rotX}deg) rotateY(${xg_rotY}deg)`;
 
-    xg_startX = e.clientX;
-    xg_startY = e.clientY;
-});
+    lastX = x;
+    lastY = y;
+}
 
-/* === МОДАЛКА === */
+// Слушатели для мыши
+xg_sphere.addEventListener("mousedown", startDrag);
+window.addEventListener("mouseup", stopDrag);
+window.addEventListener("mousemove", moveDrag);
 
+// Слушатели для тачскринов
+xg_sphere.addEventListener("touchstart", startDrag);
+window.addEventListener("touchend", stopDrag);
+window.addEventListener("touchmove", moveDrag);
+
+/* === МОДАЛКА И WHATSAPP === */
 let xg_currentImg = "";
-
 function xg_openModal(src){
     xg_currentImg = src;
     document.getElementById("xg_modal_img").src = src;
@@ -225,13 +219,21 @@ function xg_closeModal(){
     document.getElementById("xg_modal").style.display = "none";
 }
 
-/* === WHATSAPP === */
-
 document.getElementById("xg_order_btn").onclick = function(){
-    let text = encodeURIComponent("Хочу заказать: " + xg_currentImg);
-    let phone = "77000000000"; // ← вставь свой номер
+    let text = encodeURIComponent("Здравствуйте! Хочу заказать этот товар: " + xg_currentImg);
+    let phone = "77000000000"; // Замените на ваш номер
     window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
 }
+
+// Автоматическое медленное вращение для красоты
+function animate() {
+    if (!isDragging) {
+        xg_rotY += 0.05;
+        xg_sphere.style.transform = `rotateX(${xg_rotX}deg) rotateY(${xg_rotY}deg)`;
+    }
+    requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
