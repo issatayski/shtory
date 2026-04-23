@@ -6,8 +6,6 @@
 <title>Каталог</title>
 
 <style>
-/* === УНИКАЛЬНЫЕ СТИЛИ (xg_) === */
-
 .xg_body {
     margin:0;
     background:#0b0f1a;
@@ -29,12 +27,7 @@
     height:400px;
     position:relative;
     transform-style:preserve-3d;
-    animation: xg_spin 20s linear infinite;
-}
-
-@keyframes xg_spin {
-    0% { transform: rotateX(0deg) rotateY(0deg); }
-    100% { transform: rotateX(360deg) rotateY(360deg); }
+    cursor:grab;
 }
 
 .xg_item {
@@ -124,8 +117,6 @@
 </div>
 
 <script>
-/* === УНИКАЛЬНЫЙ JS (xg_) === */
-
 const xg_images = [
     "https://images.unsplash.com/photo-1582582429416-8a5d3c4a3d10",
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
@@ -139,8 +130,8 @@ const xg_images = [
 
 const xg_sphere = document.getElementById("xg_sphere");
 
-/* === РАЗМЕЩЕНИЕ НА СФЕРЕ === */
-xg_images.forEach((src, i) => {
+/* === СОЗДАНИЕ ШАРА === */
+xg_images.forEach((src) => {
     let el = document.createElement("div");
     el.className = "xg_item";
 
@@ -149,7 +140,6 @@ xg_images.forEach((src, i) => {
 
     el.appendChild(img);
 
-    // случайное расположение по сфере
     let theta = Math.random() * 2 * Math.PI;
     let phi = Math.acos((Math.random() * 2) - 1);
     let r = 180;
@@ -165,20 +155,61 @@ xg_images.forEach((src, i) => {
     xg_sphere.appendChild(el);
 });
 
-/* === СЛУЧАЙНАЯ ОСЬ ВРАЩЕНИЯ === */
-const xg_axes = [
-    "rotateX(360deg) rotateY(360deg)",
-    "rotateY(360deg)",
-    "rotateX(360deg)",
-    "rotateZ(360deg) rotateY(360deg)"
-];
+/* === СТАРТОВАЯ АНИМАЦИЯ === */
 
-xg_sphere.style.animation = `xg_spin 20s linear infinite`;
+let xg_rotX = 0;
+let xg_rotY = 0;
 
-setInterval(() => {
-    let randomAxis = xg_axes[Math.floor(Math.random()*xg_axes.length)];
-    xg_sphere.style.transform = randomAxis;
-}, 5000);
+function xg_intro() {
+    const duration = 2000 + Math.random() * 1000;
+
+    xg_rotX = 360;
+    xg_rotY = 360;
+
+    xg_sphere.style.transition = `transform ${duration}ms ease-out`;
+    xg_sphere.style.transform = `rotateX(${xg_rotX}deg) rotateY(${xg_rotY}deg)`;
+
+    setTimeout(() => {
+        xg_sphere.style.transition = "none";
+        xg_rotX = 0;
+        xg_rotY = 0;
+        xg_sphere.style.transform = `rotateX(0deg) rotateY(0deg)`;
+    }, duration);
+}
+
+xg_intro();
+
+/* === DRAG ВРАЩЕНИЕ === */
+
+let xg_isDown = false;
+let xg_startX, xg_startY;
+
+xg_sphere.addEventListener("mousedown", (e) => {
+    xg_isDown = true;
+    xg_startX = e.clientX;
+    xg_startY = e.clientY;
+    xg_sphere.style.cursor = "grabbing";
+});
+
+window.addEventListener("mouseup", () => {
+    xg_isDown = false;
+    xg_sphere.style.cursor = "grab";
+});
+
+window.addEventListener("mousemove", (e) => {
+    if (!xg_isDown) return;
+
+    let dx = e.clientX - xg_startX;
+    let dy = e.clientY - xg_startY;
+
+    xg_rotY += dx * 0.3;
+    xg_rotX -= dy * 0.3;
+
+    xg_sphere.style.transform = `rotateX(${xg_rotX}deg) rotateY(${xg_rotY}deg)`;
+
+    xg_startX = e.clientX;
+    xg_startY = e.clientY;
+});
 
 /* === МОДАЛКА === */
 
@@ -198,9 +229,8 @@ function xg_closeModal(){
 
 document.getElementById("xg_order_btn").onclick = function(){
     let text = encodeURIComponent("Хочу заказать: " + xg_currentImg);
-    let phone = "77000000000"; // ← ВСТАВЬ СВОЙ НОМЕР
-    let url = `https://wa.me/${phone}?text=${text}`;
-    window.open(url, "_blank");
+    let phone = "77000000000"; // ← вставь свой номер
+    window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
 }
 </script>
 
