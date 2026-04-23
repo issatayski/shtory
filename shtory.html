@@ -2,19 +2,25 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinity Cloud Catalog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Infinite Glossy Catalog</title>
     <style>
-        body {
-            margin: 0;
-            background: #05080a;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
-            overflow: hidden;
-            touch-action: none; /* Важно для мобилок */
+        :root {
+            --card-w: 260px;
+            --card-h: 380px;
+            --gap: 25px;
+            --accent: #25D366;
         }
 
-        #xg_container {
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background: #05070a;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        #viewport {
             width: 100vw;
             height: 100vh;
             position: relative;
@@ -22,224 +28,228 @@
             overflow: hidden;
         }
 
+        #viewport:active { cursor: grabbing; }
+
+        #world {
+            position: absolute;
+            top: 0; left: 0;
+            will-change: transform;
+        }
+
         .xg_item {
             position: absolute;
-            width: 200px;
-            height: 140px;
-            border-radius: 15px;
+            width: var(--card-w);
+            height: var(--card-h);
+            background: #111;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease, opacity 0.6s ease;
-            opacity: 0; /* Для анимации появления */
-            will-change: transform;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.8s ease;
+            opacity: 0;
+            transform: scale(0.8) translateY(100px);
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .xg_item.visible { opacity: 1; }
+        /* Анимация появления */
+        .xg_item.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
 
-        .xg_item img {
+        /* ЭФФЕКТ БЛИКА (GLOSS) */
+        .xg_item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
             width: 100%;
             height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: skewX(-25deg);
+            transition: 0.75s;
+            z-index: 2;
+        }
+
+        .xg_item:hover::before {
+            left: 150%;
+        }
+
+        .xg_item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.2);
+            z-index: 10;
+        }
+
+        .xg_item img {
+            width: 100%; height: 100%;
             object-fit: cover;
             pointer-events: none;
+            transition: transform 0.5s ease;
+        }
+
+        .xg_item:hover img {
+            transform: scale(1.1);
         }
 
         /* МОДАЛКА */
         .xg_modal {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            backdrop-filter: blur(10px);
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.92);
+            display: none; align-items: center; justify-content: center;
+            z-index: 9999; backdrop-filter: blur(12px);
         }
 
         .xg_modal_content {
-            background: #1a1f26;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 380px;
-            width: 90%;
+            background: #161a23; padding: 25px; border-radius: 30px;
+            text-align: center; max-width: 340px; width: 90%;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        .xg_modal_content img { width: 100%; border-radius: 12px; margin-bottom: 15px; }
+        .xg_modal_content img { width: 100%; border-radius: 15px; margin-bottom: 20px; }
 
         .xg_btn {
-            padding: 12px; width: 100%; border: none; border-radius: 10px;
-            cursor: pointer; font-size: 16px; font-weight: bold; margin-bottom: 10px;
+            padding: 16px; width: 100%; border: none; border-radius: 14px;
+            cursor: pointer; font-size: 16px; font-weight: 600; margin-bottom: 12px;
+            transition: 0.3s;
         }
-        .xg_order { background: #25D366; color: white; }
-        .xg_close { background: #333; color: #ccc; }
+        .xg_order { background: var(--accent); color: #fff; }
+        .xg_order:hover { background: #1ebe57; transform: translateY(-2px); }
+        .xg_close { background: #2a2f3a; color: #a0a6b3; }
     </style>
 </head>
 <body>
 
-<div id="xg_container"></div>
+<div id="viewport">
+    <div id="world"></div>
+</div>
 
 <div class="xg_modal" id="xg_modal">
     <div class="xg_modal_content">
         <img id="xg_modal_img" src="">
-        <button class="xg_btn xg_order" id="xg_order_btn">Заказать в WhatsApp</button>
-        <button class="xg_btn xg_close" onclick="xg_closeModal()">Закрыть</button>
+        <button class="xg_btn xg_order" id="xg_order_btn">Заказать через WhatsApp</button>
+        <button class="xg_btn xg_close" onclick="closeModal()">Закрыть</button>
     </div>
 </div>
 
 <script>
-const xg_images = [
-    "https://images.unsplash.com/photo-1582582429416-8a5d3c4a3d10?w=400",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400",
-    "https://images.unsplash.com/photo-1598300053653-8a77e0f0a8c2?w=400",
-    "https://images.unsplash.com/photo-1616627456487-7d46f0c1e9f1?w=400",
-    "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=400",
-    "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400",
-    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400",
-    "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400"
+const IMAGES = [
+    "https://images.unsplash.com/photo-1582582429416-8a5d3c4a3d10?w=500",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500",
+    "https://images.unsplash.com/photo-1598300053653-8a77e0f0a8c2?w=500",
+    "https://images.unsplash.com/photo-1616627456487-7d46f0c1e9f1?w=500",
+    "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=500",
+    "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=500",
+    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500",
+    "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=500"
 ];
 
-const container = document.getElementById('xg_container');
-const itemW = 220; // ширина + отступ
-const itemH = 160; // высота + отступ
+const world = document.getElementById('world');
+const cardW = 260, cardH = 380, gap = 25;
+const stepX = cardW + gap, stepY = cardH + gap;
 
-let offsetX = 0;
-let offsetY = 0;
-let items = [];
+const cols = Math.ceil(window.innerWidth / stepX) + 2;
+const rows = Math.ceil(window.innerHeight / stepY) + 2;
+const items = [];
 
-// Создаем сетку, которая чуть больше экрана
-const rows = Math.ceil(window.innerHeight / itemH) + 2;
-const cols = Math.ceil(window.innerWidth / itemW) + 2;
+// Создание сетки
+for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+        const el = document.createElement('div');
+        el.className = 'xg_item';
+        const img = document.createElement('img');
+        // Рандомный выбор из списка для разнообразия
+        const src = IMAGES[Math.floor(Math.random() * IMAGES.length)];
+        img.src = src;
+        el.appendChild(img);
+        
+        el.addEventListener('click', () => {
+            if (isMoving) return;
+            openModal(src);
+        });
 
-function init() {
-    for (let r = -1; r < rows; r++) {
-        for (let c = -1; c < cols; c++) {
-            createItem(c * itemW, r * itemH);
-        }
+        world.appendChild(el);
+
+        const item = { el, x: c * stepX, y: r * stepY, src: src };
+        items.push(item);
+
+        setTimeout(() => el.classList.add('visible'), (r + c) * 70);
     }
 }
 
-function createItem(x, y) {
-    const el = document.createElement('div');
-    el.className = 'xg_item';
-    const img = document.createElement('img');
-    
-    // Рандомная картинка
-    const src = xg_images[Math.floor(Math.random() * xg_images.length)];
-    img.src = src;
-    el.appendChild(img);
-    container.appendChild(el);
-
-    const item = { el, x, y, src };
-    items.push(item);
-
-    // Анимация появления
-    setTimeout(() => el.classList.add('visible'), Math.random() * 500);
-
-    // Клик с защитой от сдвига
-    let startClickX, startClickY;
-    el.onmousedown = (e) => { startClickX = e.clientX; startClickY = e.clientY; };
-    el.onmouseup = (e) => {
-        if (Math.abs(e.clientX - startClickX) < 5 && Math.abs(e.clientY - startClickY) < 5) {
-            xg_openModal(item.src);
-        }
-    };
-    // Для мобильных
-    el.ontouchstart = (e) => { 
-        startClickX = e.touches[0].clientX; 
-        startClickY = e.touches[0].clientY; 
-    };
-    el.ontouchend = (e) => {
-        const endX = e.changedTouches[0].clientX;
-        const endY = e.changedTouches[0].clientY;
-        if (Math.abs(endX - startClickX) < 10 && Math.abs(endY - startClickY) < 10) {
-            xg_openModal(item.src);
-        }
-    };
-}
+let worldX = 0, worldY = 0;
+let startX, startY, isDragging = false, isMoving = false;
 
 function update() {
     items.forEach(item => {
-        let screenX = item.x + offsetX;
-        let screenY = item.y + offsetY;
+        let realX = item.x + worldX;
+        let realY = item.y + worldY;
 
-        // Бесконечное перемещение по X
-        const fullW = cols * itemW;
-        if (screenX < -itemW) item.x += fullW;
-        if (screenX > window.innerWidth + itemW) item.x -= fullW;
+        const fullW = cols * stepX;
+        const fullH = rows * stepY;
 
-        // Бесконечное перемещение по Y
-        const fullH = rows * itemH;
-        if (screenY < -itemH) item.y += fullH;
-        if (screenY > window.innerHeight + itemH) item.y -= fullH;
+        if (realX < -stepX) item.x += fullW;
+        if (realX > window.innerWidth + stepX) item.x -= fullW;
+        if (realY < -stepY) item.y += fullH;
+        if (realY > window.innerHeight + stepY) item.y -= fullH;
 
-        item.el.style.transform = `translate3d(${screenX}px, ${screenY}px, 0)`;
+        item.el.style.transform = `translate3d(${item.x}px, ${item.y}px, 0)`;
     });
+    world.style.transform = `translate3d(${worldX}px, ${worldY}px, 0)`;
 }
 
-/* === УПРАВЛЕНИЕ === */
-let isDragging = false;
-let lastX, lastY;
+update();
 
-const startDrag = (e) => {
+/* === EVENTS (MOUSE & TOUCH) === */
+const handleStart = (e) => {
     isDragging = true;
-    lastX = e.clientX || e.touches[0].clientX;
-    lastY = e.clientY || e.touches[0].clientY;
-    container.style.cursor = 'grabbing';
+    isMoving = false;
+    const t = e.touches ? e.touches[0] : e;
+    startX = t.clientX - worldX;
+    startY = t.clientY - worldY;
 };
 
-const moveDrag = (e) => {
+const handleMove = (e) => {
     if (!isDragging) return;
-    const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-    const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-    
-    offsetX += x - lastX;
-    offsetY += y - lastY;
-    
-    lastX = x;
-    lastY = y;
+    isMoving = true;
+    const t = e.touches ? e.touches[0] : e;
+    worldX = t.clientX - startX;
+    worldY = t.clientY - startY;
     update();
 };
 
-const stopDrag = () => {
+const handleEnd = () => {
     isDragging = false;
-    container.style.cursor = 'grab';
+    setTimeout(() => isMoving = false, 100);
 };
 
-window.addEventListener('mousedown', startDrag);
-window.addEventListener('mousemove', moveDrag);
-window.addEventListener('mouseup', stopDrag);
-window.addEventListener('touchstart', startDrag);
-window.addEventListener('touchmove', moveDrag);
-window.addEventListener('touchend', stopDrag);
+window.addEventListener('mousedown', handleStart);
+window.addEventListener('mousemove', handleMove);
+window.addEventListener('mouseup', handleEnd);
+window.addEventListener('touchstart', handleStart, {passive: false});
+window.addEventListener('touchmove', handleMove, {passive: false});
+window.addEventListener('touchend', handleEnd);
 
-/* === АВТО-ДВИЖЕНИЕ (на искосок) === */
-function autoAnimate() {
-    if (!isDragging) {
-        offsetX -= 0.3;
-        offsetY -= 0.2;
-        update();
-    }
-    requestAnimationFrame(autoAnimate);
+/* === MODAL & BUSINESS === */
+let currentImg = "";
+function openModal(src) {
+    currentImg = src;
+    document.getElementById('xg_modal_img').src = src;
+    document.getElementById('xg_modal').style.display = 'flex';
 }
-
-/* === МОДАЛКА === */
-let xg_currentImg = "";
-function xg_openModal(src){
-    xg_currentImg = src;
-    document.getElementById("xg_modal_img").src = src;
-    document.getElementById("xg_modal").style.display = "flex";
-}
-function xg_closeModal(){
-    document.getElementById("xg_modal").style.display = "none";
+function closeModal() {
+    document.getElementById('xg_modal').style.display = 'none';
 }
 document.getElementById("xg_order_btn").onclick = function(){
-    let text = encodeURIComponent("Заказ товара: " + xg_currentImg);
-    window.open(`https://wa.me/77000000000?text=${text}`, "_blank");
+    let phone = "77000000000"; // ВАШ НОМЕР
+    let text = encodeURIComponent("Здравствуйте! Хочу заказать товар: " + currentImg);
+    window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
 }
-
-init();
-autoAnimate();
 </script>
 </body>
 </html>
