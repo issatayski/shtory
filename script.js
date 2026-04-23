@@ -6,9 +6,9 @@ AOS.init({
 
 // Логика Квиза
 let quizData = {
-    1: '', // Стиль
-    2: '', // Помещение
-    3: ''  // Тип изделия
+    1: '', // задача
+    2: '', // помещение
+    3: ''  // количество окон
 };
 
 let currentStep = 1;
@@ -66,16 +66,14 @@ function sendQuiz() {
     const loader = document.getElementById('quizLoader');
     loader.style.display = 'block';
 
-    // формируем сообщение
     const message = `Здравствуйте! Я прошёл квиз:%0A%0A` +
-                    `— Стиль: ${quizData[1]}%0A` +
+                    `— Задача: ${quizData[1]}%0A` +
                     `— Помещение: ${quizData[2]}%0A` +
-                    `— Интерес: ${quizData[3]}%0A%0A` +
+                    `— Окон: ${quizData[3]}%0A%0A` +
                     `Подберите, пожалуйста, варианты и пример стоимости.`;
 
-    const whatsappUrl = `https://wa.me/77754046186?text=${message}`;
+    const whatsappUrl = `https://wa.me/77000000000?text=${message}`;
 
-    // небольшая задержка для UX
     setTimeout(() => {
         window.open(whatsappUrl, '_blank');
         loader.style.display = 'none';

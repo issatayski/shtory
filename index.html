@@ -62,59 +62,70 @@
     </section>
 
     <section id="quiz" class="quiz">
-        <div class="container">
-            <h2>Подбор дизайна под ваш интерьер</h2>
-            <div class="quiz-progress">
-                <div class="quiz-bar" id="quizBar"></div>
-            </div>
+           <div class="container">
+    <h2>Подберём идеальное решение для ваших окон 👇</h2>
 
-            <div class="quiz-step active" data-step="1">
-                <h3>Какой стиль вам ближе?</h3>
-                <div class="quiz-grid">
-                    <div class="quiz-item" onclick="selectAnswer(1,'Минимализм')">Минимализм</div>
-                    <div class="quiz-item" onclick="selectAnswer(1,'Уютный дом')">Уютный дом</div>
-                    <div class="quiz-item" onclick="selectAnswer(1,'Премиум')">Премиум</div>
-                    <div class="quiz-item" onclick="selectAnswer(1,'Натуральный')">Натуральный</div>
-                </div>
-            </div>
+    <div class="quiz-progress">
+        <div class="quiz-bar" id="quizBar"></div>
+    </div>
 
-            <div class="quiz-step" data-step="2">
-                <h3>Где будут шторы?</h3>
-                <div class="quiz-grid">
-                    <div class="quiz-item" onclick="selectAnswer(2,'Квартира')">Квартира</div>
-                    <div class="quiz-item" onclick="selectAnswer(2,'Дом')">Дом</div>
-                    <div class="quiz-item" onclick="selectAnswer(2,'Офис')">Офис</div>
-                </div>
-            </div>
-
-            <div class="quiz-step" data-step="3">
-                <h3>Тип изделия</h3>
-                <div class="quiz-grid">
-                    <div class="quiz-item" onclick="selectAnswer(3,'Ролл-шторы')">Ролл-шторы</div>
-                    <div class="quiz-item" onclick="selectAnswer(3,'Жалюзи')">Жалюзи</div>
-                </div>
-            </div>
-
-            <div class="quiz-step" data-step="4">
-					<h3>Остался последний шаг 👇</h3>
-
-					<p class="quiz-final-text">
-						Отправим вам подборку решений и пример стоимости в WhatsApp
-						<br><span>Без звонков. Быстро и удобно.</span>
-					</p>
-
-					<button class="btn btn-accent quiz-wa-btn" onclick="sendQuiz()">
-						Получить подборку в WhatsApp
-					</button>
-
-					<div class="quiz-trust">
-						<span>🔒 Только полезная информация</span>
-						<span>⏱ Ответим за 5–10 минут</span>
-					</div>
-
-					<div id="quizLoader" class="quiz-loader">Подбираем решения для вас...</div>
-			</div>
+    <!-- ШАГ 1 -->
+    <div class="quiz-step active" data-step="1">
+        <h3>Что для вас важно?</h3>
+        <div class="quiz-grid">
+            <div class="quiz-item" onclick="selectAnswer(1,'Солнце')">☀️ Защита от солнца</div>
+            <div class="quiz-item" onclick="selectAnswer(1,'Приватность')">👀 Закрыться от посторонних</div>
+            <div class="quiz-item" onclick="selectAnswer(1,'Дизайн')">🎨 Красивый интерьер</div>
+            <div class="quiz-item" onclick="selectAnswer(1,'Автоматизация')">⚡ Умное управление</div>
+            <div class="quiz-item" onclick="selectAnswer(1,'Москитные сетки')">🦟 Защита от насекомых</div>
+            <div class="quiz-item" onclick="selectAnswer(1,'Безопасность')">🔒 Безопасность</div>
         </div>
+    </div>
+
+    <!-- ШАГ 2 -->
+    <div class="quiz-step" data-step="2">
+        <h3>Где нужно установить?</h3>
+        <div class="quiz-grid">
+            <div class="quiz-item" onclick="selectAnswer(2,'Квартира')">🏠 Квартира</div>
+            <div class="quiz-item" onclick="selectAnswer(2,'Дом')">🏡 Частный дом</div>
+            <div class="quiz-item" onclick="selectAnswer(2,'Офис')">🏢 Офис / коммерция</div>
+        </div>
+    </div>
+
+    <!-- ШАГ 3 -->
+    <div class="quiz-step" data-step="3">
+        <h3>Сколько окон примерно?</h3>
+        <div class="quiz-grid">
+            <div class="quiz-item" onclick="selectAnswer(3,'1-2 окна')">1–2 окна</div>
+            <div class="quiz-item" onclick="selectAnswer(3,'3-5 окон')">3–5 окон</div>
+            <div class="quiz-item" onclick="selectAnswer(3,'Больше 5')">Больше 5</div>
+            <div class="quiz-item" onclick="selectAnswer(3,'Не знаю')">Не знаю точно</div>
+        </div>
+    </div>
+
+    <!-- ШАГ 4 (ФИНАЛ) -->
+    <div class="quiz-step" data-step="4">
+        <h3>Остался последний шаг 👇</h3>
+
+        <p class="quiz-final-text">
+            Отправим подборку решений и пример стоимости в WhatsApp
+            <br><span>Без звонков. Быстро и удобно.</span>
+        </p>
+
+        <button class="btn btn-accent quiz-wa-btn" onclick="sendQuiz()">
+            Получить подборку в WhatsApp
+        </button>
+
+        <div class="quiz-trust">
+            <span>🔒 Без спама</span>
+            <span>⏱ Ответ 5–10 минут</span>
+        </div>
+
+        <div id="quizLoader" class="quiz-loader">
+            Подбираем решения для вас...
+        </div>
+    </div>
+</div>
     </section>
 
     <section class="catalog container" data-aos="fade-up">

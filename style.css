@@ -337,7 +337,6 @@ h1, h2, h3 {
     text-align: center;
     margin: 20px 0;
     font-size: 16px;
-    color: #333;
 }
 
 .quiz-final-text span {
@@ -347,16 +346,15 @@ h1, h2, h3 {
 
 .quiz-wa-btn {
     width: 100%;
-    font-size: 16px;
     padding: 16px;
-    margin-top: 10px;
+    font-size: 16px;
 }
 
 .quiz-trust {
     display: flex;
     justify-content: space-between;
-    font-size: 13px;
     margin-top: 15px;
+    font-size: 13px;
     opacity: 0.7;
 }
 
@@ -364,7 +362,6 @@ h1, h2, h3 {
     display: none;
     text-align: center;
     margin-top: 20px;
-    font-weight: 500;
     color: #0DB14B;
     animation: fadePulse 1s infinite alternate;
 }
