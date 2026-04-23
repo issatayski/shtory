@@ -72,7 +72,7 @@ function sendQuiz() {
                     `— Окон: ${quizData[3]}%0A%0A` +
                     `Подберите, пожалуйста, варианты и пример стоимости.`;
 
-    const whatsappUrl = `https://wa.me/77000000000?text=${message}`;
+    const whatsappUrl = `https://wa.me/77770356267?text=${message}`;
 
     setTimeout(() => {
         window.open(whatsappUrl, '_blank');
