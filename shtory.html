@@ -128,6 +128,7 @@
 
 <script>
 // ДАННЫЕ КАТАЛОГА
+// ДАННЫЕ КАТАЛОГА
 const CATALOG = [
     { src: "./catalog/2roll.jpg", title: "2-Roll" },
     { src: "./catalog/day_nite.jpg", title: "День-Ночь" },
@@ -140,11 +141,25 @@ const CATALOG = [
 ];
 
 const world = document.getElementById('world');
-const cardW = 260, cardH = 380, gap = 30;
-const stepX = cardW + gap, stepY = cardH + gap;
-const colsCount = 4; 
+
+// АДАПТИВНЫЕ ПАРАМЕТРЫ
+const isMobile = window.innerWidth <= 768;
+const cardW = isMobile ? window.innerWidth * 0.8 : 260; // На мобильных карта занимает 80% ширины
+const cardH = isMobile ? (cardW * 1.4) : 380; // Сохраняем пропорции
+const gap = isMobile ? 20 : 30;
+
+const stepX = cardW + gap;
+const stepY = cardH + gap;
+
+// Умное количество колонок: 2 для мобильных, 4-5 для ПК
+const colsCount = isMobile ? 2 : 4; 
 const rowsCount = Math.ceil(CATALOG.length / colsCount);
 const items = [];
+
+// Принудительно устанавливаем размеры в CSS переменные для корректного отображения
+document.documentElement.style.setProperty('--card-w', cardW + 'px');
+document.documentElement.style.setProperty('--card-h', cardH + 'px');
+document.documentElement.style.setProperty('--gap', gap + 'px');
 
 // СОЗДАНИЕ КАРТОЧЕК
 CATALOG.forEach((data, index) => {
@@ -171,6 +186,8 @@ CATALOG.forEach((data, index) => {
 
 let worldX = 0, worldY = 0;
 let startX, startY, isDragging = false, isMoving = false;
+
+// Полные размеры сетки для бесконечного цикла
 const gridWidth = colsCount * stepX;
 const gridHeight = rowsCount * stepY;
 
@@ -178,10 +195,14 @@ function update() {
     items.forEach(item => {
         let realX = item.x + worldX;
         let realY = item.y + worldY;
+
+        // Корректный бесконечный цикл для любых экранов
         if (realX < -stepX) item.x += gridWidth;
         if (realX > window.innerWidth + (gridWidth - window.innerWidth)) item.x -= gridWidth;
+        
         if (realY < -stepY) item.y += gridHeight;
         if (realY > window.innerHeight + (gridHeight - window.innerHeight)) item.y -= gridHeight;
+
         item.el.style.transform = `translate3d(${item.x}px, ${item.y}px, 0)`;
     });
     world.style.transform = `translate3d(${worldX}px, ${worldY}px, 0)`;
