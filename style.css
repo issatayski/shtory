@@ -225,8 +225,8 @@ h1, h2, h3 {
     cursor: pointer;
 }
 
-.btn-primary { background: #1E1E1E; color: #fff; }
-.btn-accent { background: #0DB14B; color: #fff; }
+.btn-primary { background: ##0DB14B; color: #fff; }
+.btn-accent { background: #1a73e8; color: #fff; }
 .btn:hover { transform: scale(1.05); opacity: .9; }
 
 /* HERO SECTION */
@@ -548,24 +548,9 @@ h1, h2, h3 {
 /* DESKTOP STICKY */
 @media(min-width: 1024px) {
     .sticky {
-        top: 50%;
-        right: 15px;
-        bottom: auto;
-        width: auto;
-        flex-direction: column;
-        transform: translateY(-50%);
-        left: auto;
+       display:none;
     }
-    .sticky a {
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        margin: 5px 0;
-    }
+    
 }
 
 /* MOBILE ADAPTIVITY - ИСПРАВЛЕННЫЙ БЛОК */
