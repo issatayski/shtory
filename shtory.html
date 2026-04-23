@@ -41,9 +41,22 @@
 
         /* CATALOG CANVAS */
         :root { --card-w: 260px; --card-h: 380px; --gap: 30px; --accent: #25D366; }
-        body { margin: 0; background: #f4f4f4; overflow: hidden; }
         
-        #viewport { width: 100vw; height: 100vh; position: relative; cursor: grab; }
+        /* Исправление "бегающего" экрана */
+        body, html { 
+            margin: 0; padding: 0; 
+            width: 100%; height: 100%; 
+            overflow: hidden; 
+            background: #f4f4f4; 
+        }
+        
+        #viewport { 
+            width: 100vw; 
+            height: 100vh; 
+            position: relative; 
+            cursor: grab; 
+            touch-action: none; /* Запрещает системный скролл поверх каталога */
+        }
         #world { position: absolute; top: 0; left: 0; will-change: transform; }
 
         .xg_item {
@@ -55,13 +68,12 @@
         .xg_item:hover { border-color: var(--accent); }
         .xg_item img { width: 100%; height: 85%; object-fit: cover; pointer-events: none; }
         
-        /* ТЕКСТ НАД КАРТИНКОЙ В ЦЕНТРЕ */
         .card-title {
             position: absolute; top: 0; left: 0; width: 100%; height: 85%;
             display: flex; align-items: center; justify-content: center;
             background: rgba(0,0,0,0.2); color: #fff; font-weight: bold;
             font-size: 20px; text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-            pointer-events: none;
+            pointer-events: none; padding: 10px; text-align: center; box-sizing: border-box;
         }
         .card-footer { height: 15%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: #333; }
 
@@ -127,8 +139,6 @@
 </div>
 
 <script>
-// ДАННЫЕ КАТАЛОГА
-// ДАННЫЕ КАТАЛОГА
 const CATALOG = [
     { src: "./catalog/2roll.jpg", title: "2-Roll" },
     { src: "./catalog/day_nite.jpg", title: "День-Ночь" },
@@ -142,26 +152,22 @@ const CATALOG = [
 
 const world = document.getElementById('world');
 
-// АДАПТИВНЫЕ ПАРАМЕТРЫ
 const isMobile = window.innerWidth <= 768;
-const cardW = isMobile ? window.innerWidth * 0.8 : 260; // На мобильных карта занимает 80% ширины
-const cardH = isMobile ? (cardW * 1.4) : 380; // Сохраняем пропорции
+const cardW = isMobile ? window.innerWidth * 0.75 : 260; // Немного уменьшил, чтобы видеть края соседних карт
+const cardH = isMobile ? (cardW * 1.4) : 380;
 const gap = isMobile ? 20 : 30;
 
 const stepX = cardW + gap;
 const stepY = cardH + gap;
 
-// Умное количество колонок: 2 для мобильных, 4-5 для ПК
 const colsCount = isMobile ? 2 : 4; 
 const rowsCount = Math.ceil(CATALOG.length / colsCount);
 const items = [];
 
-// Принудительно устанавливаем размеры в CSS переменные для корректного отображения
 document.documentElement.style.setProperty('--card-w', cardW + 'px');
 document.documentElement.style.setProperty('--card-h', cardH + 'px');
 document.documentElement.style.setProperty('--gap', gap + 'px');
 
-// СОЗДАНИЕ КАРТОЧЕК
 CATALOG.forEach((data, index) => {
     const r = Math.floor(index / colsCount);
     const c = index % colsCount;
@@ -187,7 +193,6 @@ CATALOG.forEach((data, index) => {
 let worldX = 0, worldY = 0;
 let startX, startY, isDragging = false, isMoving = false;
 
-// Полные размеры сетки для бесконечного цикла
 const gridWidth = colsCount * stepX;
 const gridHeight = rowsCount * stepY;
 
@@ -196,7 +201,6 @@ function update() {
         let realX = item.x + worldX;
         let realY = item.y + worldY;
 
-        // Корректный бесконечный цикл для любых экранов
         if (realX < -stepX) item.x += gridWidth;
         if (realX > window.innerWidth + (gridWidth - window.innerWidth)) item.x -= gridWidth;
         
@@ -215,18 +219,26 @@ const handleStart = (e) => {
     const t = e.touches ? e.touches[0] : e;
     startX = t.clientX - worldX; startY = t.clientY - worldY;
 };
+
 const handleMove = (e) => {
     if (!isDragging) return;
+    
+    // Блокируем скролл самой страницы браузером во время движения каталога
+    if (e.cancelable) e.preventDefault();
+    
     isMoving = true;
     const t = e.touches ? e.touches[0] : e;
     worldX = t.clientX - startX; worldY = t.clientY - startY;
     update();
 };
+
 const handleEnd = () => { isDragging = false; setTimeout(() => isMoving = false, 50); };
 
 window.addEventListener('mousedown', handleStart);
 window.addEventListener('mousemove', handleMove);
 window.addEventListener('mouseup', handleEnd);
+
+// Важно: passive: false позволяет e.preventDefault() работать корректно
 window.addEventListener('touchstart', handleStart, {passive: false});
 window.addEventListener('touchmove', handleMove, {passive: false});
 window.addEventListener('touchend', handleEnd);
@@ -243,7 +255,6 @@ function closeModal() { document.getElementById('xg_modal').style.display = 'non
 
 document.getElementById("xg_order_btn").onclick = function() {
     const phone = "77754046186";
-    // Формируем ссылку на фото для WhatsApp
     const imgUrl = window.location.origin + "/" + currentOrder.src.replace("./", "");
     const text = encodeURIComponent(`Здравствуйте! Хочу заказать: *${currentOrder.title}*\nФото: ${imgUrl}`);
     window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
