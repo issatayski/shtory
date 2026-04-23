@@ -478,13 +478,14 @@ h1, h2, h3 {
 
 .step img:hover {
     transform: scale(1.1);
+}
 	
 /* 📱 Мобилка — 2 в ряд */
 @media (max-width: 600px) {
     .process {
         grid-template-columns: repeat(2, 1fr);
     }
-
+}
 
 	
 
