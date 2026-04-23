@@ -7,37 +7,185 @@
     <style>
         /* HEADER STYLES */
         .header {
-            position: fixed; top: 0; left: 0; width: 100%; height: 70px;
-            background: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            z-index: 1000; display: flex; align-items: center;
-        }
-        .header-wrap { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 20px; }
-        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
-        .logo-img { height: 70px; transition: 0.3s; }
-        .logo-slogan { font-size: 18px; color: #0c5b71; line-height: 1.2; max-width: 250px; font-weight: 600; }
-        
-        .nav-desktop { display: flex; gap: 25px; }
-        .nav-desktop a { text-decoration: none; color: #1E1E1E; font-weight: 500; font-size: 14px; }
-        .btn-call { background: #1E1E1E; color: #fff !important; padding: 8px 18px; border-radius: 20px; }
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: #ffffff;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
 
-        /* MOBILE MENU */
-        .menu-toggle { display: none; width: 30px; height: 20px; position: relative; cursor: pointer; z-index: 1002; }
-        .menu-toggle span { display: block; width: 100%; height: 2px; background: #1e1e1e; position: absolute; transition: 0.3s; }
-        .menu-toggle span:first-child { top: 0; }
-        .menu-toggle span:last-child { bottom: 0; }
-        .mobile-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; z-index: 1001; display: flex; justify-content: center;
-            align-items: center; transform: translateY(-100%); transition: 0.5s ease;
-        }
-        .mobile-overlay.active { transform: translateY(0); }
-        .mobile-nav-list { display: flex; flex-direction: column; gap: 30px; text-align: center; }
-        .mobile-nav-list a { font-size: 24px; text-decoration: none; color: #1e1e1e; font-weight: 700; }
+.header-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+}
 
-        @media (max-width: 1024px) {
-            .nav-desktop { display: none; }
-            .menu-toggle { display: block; }
-        }
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 70px;
+    width: auto;
+    display: block;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .logo-img {
+        height: 60px;
+    }
+}
+
+.logo strong { font-size: 20px; font-family: 'Montserrat'; }
+.logo-slogan {
+    font-size: 20px;
+    color: #0c5b71;
+    line-height: 1.2;
+    max-width: 250px;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        gap: 8px;
+    }
+    .logo-slogan {
+        font-size: 18px;
+        display: block;
+    }
+}
+
+/* DESKTOP NAV */
+.nav-desktop { display: flex; align-items: center; gap: 25px; }
+.nav-desktop a {
+    text-decoration: none;
+    color: #1E1E1E;
+    font-weight: 500;
+    font-size: 14px;
+    transition: 0.3s;
+}
+.nav-desktop a:hover { color: #0DB14B; }
+
+.btn-call {
+    background: #1E1E1E;
+    color: #fff !important;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px !important;
+}
+
+/* MOBILE TOGGLE (HAMBURGER) */
+.menu-toggle {
+    display: none;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #1e1e1e;
+    position: absolute;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-toggle span:first-child { top: 0; }
+.menu-toggle span:last-child { bottom: 0; }
+
+.menu-toggle.active span:first-child {
+    transform: translateY(6px);
+    opacity: 0;
+}
+
+.menu-toggle.active span:last-child {
+    transform: translateY(-6px);
+    opacity: 0;
+}
+
+/* MOBILE OVERLAY */
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-overlay.active { transform: translateY(0); }
+
+.mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.mobile-nav-list a {
+    font-family: 'Montserrat';
+    font-size: 28px;
+    text-decoration: none;
+    color: #1e1e1e;
+    font-weight: 700;
+}
+
+.mobile-call { color: #0DB14B !important; }
+
+.hero { margin-top: 0; } 
+
+@media (max-width: 1024px) {
+    .nav-desktop { display: none; }
+    .menu-toggle { display: block; }
+}
+
+/* APPLE STYLE CLOSE BUTTON */
+.mobile-close {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    z-index: 1003;
+}
+
+.mobile-close span {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #1e1e1e;
+    top: 50%;
+    left: 0;
+    transform-origin: center;
+    transition: all 0.3s ease;
+}
+
+.mobile-close span:first-child { transform: rotate(45deg); }
+.mobile-close span:last-child { transform: rotate(-45deg); }
+.mobile-close:hover span { opacity: 0.6; }
 
         /* CATALOG CANVAS */
         :root { --card-w: 260px; --card-h: 380px; --gap: 30px; --accent: #25D366; }
@@ -269,13 +417,22 @@ document.getElementById("xg_order_btn").onclick = function() {
     window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
 }
 
-/* MENU */
+// Логика мобильного меню
 const menuToggle = document.getElementById('menuToggle');
 const mobileMenu = document.getElementById('mobileMenu');
+
 function toggleMenu() {
     menuToggle.classList.toggle('active');
     mobileMenu.classList.toggle('active');
+    
+    // Блокируем скролл при открытом меню
+    if (mobileMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
 }
+
 menuToggle.addEventListener('click', toggleMenu);
 </script>
 
