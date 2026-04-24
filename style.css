@@ -717,37 +717,52 @@ video.show { opacity: 1; }
 
 
 
-/* Анимированная стрелка в квизе */
-.quiz-title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+/* Группировка заголовка квиза */
+.quiz-header {
     text-align: center;
+    margin-bottom: 30px;
+}
+
+.quiz-title {
+    font-size: 28px;
+    margin-bottom: 8px !important;
+    color: #1E1E1E;
+}
+
+.quiz-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+    font-weight: 500;
 }
 
 .animated-arrow {
-    display: inline-block;
-    color: #0DB14B; /* Цвет как у вашей полосы прогресса (Green) */
-    animation: arrow-bounce 1.6s ease-in-out infinite;
-    line-height: 0;
+    display: inline-flex;
+    justify-content: center;
+    color: #0DB14B; /* Ваш фирменный зеленый */
+    animation: arrow-bounce 1.5s ease-in-out infinite;
 }
 
+/* Эффект привлечения внимания к кнопкам */
 @keyframes arrow-bounce {
     0%, 100% {
         transform: translateY(0);
-        opacity: 1;
+        filter: drop-shadow(0 0 0px rgba(13, 177, 75, 0));
     }
     50% {
-        transform: translateY(8px);
-        opacity: 0.6;
+        transform: translateY(12px);
+        /* Добавляем легкое свечение при движении вниз */
+        filter: drop-shadow(0 5px 8px rgba(13, 177, 75, 0.3));
     }
 }
 
-/* На мобильных устройствах немного уменьшим размер */
+/* Адаптивность для мобильных */
 @media (max-width: 768px) {
-    .animated-arrow svg {
-        width: 24px;
-        height: 24px;
+    .quiz-title {
+        font-size: 22px;
+    }
+    .quiz-subtitle {
+        font-size: 14px;
+        padding: 0 10px;
     }
 }
