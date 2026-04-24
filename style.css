@@ -717,52 +717,44 @@ video.show { opacity: 1; }
 
 
 
-/* Группировка заголовка квиза */
-.quiz-header {
-    text-align: center;
-    margin-bottom: 30px;
+//* Центрирование шапки квиза */
+.quiz-header-container {
+    display: flex;
+    flex-direction: column; /* Элементы друг под другом */
+    align-items: center;    /* Центрирование по горизонтали */
+    justify-content: center;/* Центрирование по вертикали */
+    text-align: center;     /* Центрирование текста внутри строк */
+    width: 100%;
+    margin: 0 auto 30px auto; /* Центрирование самого контейнера + отступ снизу */
 }
 
 .quiz-title {
     font-size: 28px;
-    margin-bottom: 8px !important;
-    color: #1E1E1E;
+    margin: 0 0 10px 0 !important;
+    width: 100%;
 }
 
 .quiz-subtitle {
     font-size: 16px;
     color: #666;
-    margin-bottom: 15px;
-    font-weight: 500;
+    margin: 0 0 15px 0 !important;
+    width: 100%;
 }
 
 .animated-arrow {
-    display: inline-flex;
+    display: flex;
     justify-content: center;
-    color: #0DB14B; /* Ваш фирменный зеленый */
+    color: #0DB14B;
     animation: arrow-bounce 1.5s ease-in-out infinite;
 }
 
-/* Эффект привлечения внимания к кнопкам */
 @keyframes arrow-bounce {
-    0%, 100% {
-        transform: translateY(0);
-        filter: drop-shadow(0 0 0px rgba(13, 177, 75, 0));
-    }
-    50% {
-        transform: translateY(12px);
-        /* Добавляем легкое свечение при движении вниз */
-        filter: drop-shadow(0 5px 8px rgba(13, 177, 75, 0.3));
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
 }
 
-/* Адаптивность для мобильных */
+/* Адаптив для мобильных */
 @media (max-width: 768px) {
-    .quiz-title {
-        font-size: 22px;
-    }
-    .quiz-subtitle {
-        font-size: 14px;
-        padding: 0 10px;
-    }
+    .quiz-title { font-size: 22px; }
+    .quiz-subtitle { font-size: 14px; }
 }
