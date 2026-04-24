@@ -758,3 +758,33 @@ video.show { opacity: 1; }
     .quiz-title { font-size: 22px; }
     .quiz-subtitle { font-size: 14px; }
 }
+
+/* Стили для нового заголовка внутри секции process */
+.process {
+    display: grid;
+    /* Указываем, что заголовок должен занимать все колонки сетки */
+    grid-template-columns: repeat(4, 1fr); 
+}
+
+.section-title {
+    grid-column: 1 / -1; /* Заставляет заголовок растянуться на всю ширину сетки */
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+    width: 100%;
+}
+
+/* Адаптация для мобильных устройств (согласно вашим текущим медиа-запросам) */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 26px;
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 600px) {
+    .process {
+        /* Сохраняем вашу логику 2 в ряд для мобильных */
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
