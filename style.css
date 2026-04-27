@@ -856,28 +856,29 @@ video.show { opacity: 1; }
 
 .social {
     display: flex;
-    gap: 20px; /* Расстояние между иконками */
+    gap: 15px;
     align-items: center;
+    padding: 10px;
 }
 
 .social a {
-    color: #333; /* Цвет иконок по умолчанию */
-    font-size: 24px; /* Размер иконок */
+    font-size: 28px; /* Сделали чуть крупнее для наглядности */
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
-/* Эффект при наведении */
+/* Обычный цвет Instagram (градиент заменен на классический розовый/пурпурный) */
+.social a.ig {
+    color: #E1306C;
+}
+
+/* Обычный цвет TikTok (черный с небольшим отступом) */
+.social a.tk {
+    color: #000000;
+}
+
+/* Легкий эффект при нажатии или наведении */
 .social a:hover {
-    color: #8d7a5f; /* Ваш акцентный цвет или цвет бренда */
-    transform: translateY(-3px); /* Легкий подъем вверх */
-}
-
-/* Специфические цвета (по желанию) */
-.social a .fa-instagram:hover {
-    color: #E1306C; /* Фирменный цвет Instagram */
-}
-
-.social a .fa-tiktok:hover {
-    color: #000000; /* Цвет TikTok */
+    transform: scale(1.1); /* Иконка немного увеличится */
+    opacity: 0.8; /* Чуть посветлеет */
 }
