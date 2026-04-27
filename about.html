@@ -3,9 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О компании | Премиальные солнцезащитные решения</title>
+    <title>О компании</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+		      /* HEADER STYLES */
+        .header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 70px;
+			background: #ffffff;
+			box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+			z-index: 1000;
+			display: flex;
+			align-items: center;
+		}
+
+		.header-wrap {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+			padding: 0 20px;
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+			text-decoration: none;
+		}
+
+		.logo-img {
+			height: 70px;
+			width: auto;
+			display: block;
+		}
+
+		.logo-img:hover {
+			transform: scale(1.05);
+		}
+
+		@media (max-width: 768px) {
+			.logo-img {
+				height: 60px;
+			}
+		}
+
+		.logo strong { font-size: 20px; font-family: 'Montserrat'; }
+		.logo-slogan {
+			font-size: 20px;
+			color: #0c5b71;
+			line-height: 1.2;
+			max-width: 250px;
+		}
+
+		@media (max-width: 768px) {
+			.logo {
+				gap: 8px;
+			}
+			.logo-slogan {
+				font-size: 18px;
+				display: block;
+			}
+		}
+
+		/* DESKTOP NAV */
+		.nav-desktop { display: flex; align-items: center; gap: 25px; }
+		.nav-desktop a {
+			text-decoration: none;
+			color: #1E1E1E;
+			font-weight: 500;
+			font-size: 14px;
+			transition: 0.3s;
+		}
+		.nav-desktop a:hover { color: #0DB14B; }
+
+		.btn-call {
+			background: #1E1E1E;
+			color: #fff !important;
+			padding: 8px 18px;
+			border-radius: 20px;
+			font-size: 13px !important;
+		}
+
+		/* MOBILE TOGGLE (HAMBURGER) */
+		.menu-toggle {
+			display: none;
+			width: 30px;
+			height: 20px;
+			position: relative;
+			cursor: pointer;
+			z-index: 1002;
+		}
+
+		.menu-toggle span {
+			display: block;
+			width: 100%;
+			height: 2px;
+			background: #1e1e1e;
+			position: absolute;
+			transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		.menu-toggle span:first-child { top: 0; }
+		.menu-toggle span:last-child { bottom: 0; }
+
+		.menu-toggle.active span:first-child {
+			transform: translateY(6px);
+			opacity: 0;
+		}
+
+		.menu-toggle.active span:last-child {
+			transform: translateY(-6px);
+			opacity: 0;
+		}
+
+		/* MOBILE OVERLAY */
+		.mobile-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: #fff;
+			z-index: 1001;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transform: translateY(-100%);
+			transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		.mobile-overlay.active { transform: translateY(0); }
+
+		.mobile-nav-list {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 30px;
+		}
+
+		.mobile-nav-list a {
+			font-family: 'Montserrat';
+			font-size: 28px;
+			text-decoration: none;
+			color: #1e1e1e;
+			font-weight: 700;
+		}
+
+		.mobile-call { color: #0DB14B !important; }
+
+		.hero { margin-top: 0; } 
+
+		@media (max-width: 1024px) {
+			.nav-desktop { display: none; }
+			.menu-toggle { display: block; }
+		}
+
+		/* APPLE STYLE CLOSE BUTTON */
+		.mobile-close {
+			position: absolute;
+			top: 25px;
+			right: 20px;
+			width: 28px;
+			height: 28px;
+			cursor: pointer;
+			z-index: 1003;
+		}
+
+		.mobile-close span {
+			position: absolute;
+			width: 100%;
+			height: 2px;
+			background: #1e1e1e;
+			top: 50%;
+			left: 0;
+			transform-origin: center;
+			transition: all 0.3s ease;
+		}
+
+		.mobile-close span:first-child { transform: rotate(45deg); }
+		.mobile-close span:last-child { transform: rotate(-45deg); }
+		.mobile-close:hover span { opacity: 0.6; }
+	
+	
+	
+	
         :root {
             --primary-dark: #2c2c2c;
             --accent-color: #8d7a5f; /* Золотисто-коричневый для премиального акцента */
@@ -163,7 +348,44 @@
     </style>
 </head>
 <body>
+		
+		<header class="header">
+						<div class="container header-wrap">
+							<div class="logo">
+								<a href="./index.html"><img src="./img/logotip.png" alt="Жалюзи и Ролл-шторы" class="logo-img"></a>
+								<span class="logo-slogan">Стиль в каждом окне</span>
+							</div>
 
+							<nav class="nav-desktop">
+								<a href="./index.html#quiz">Подбор дизайна</a>
+								<a href="./index.html#gallery">Галерея</a>
+								<a href="./index.html#contact">Контакты</a>
+								<a href="tel:+77770356267" class="btn-call">Позвонить</a>
+							</nav>
+
+							<div class="menu-toggle" id="menuToggle">
+								<span></span>
+								<span></span>
+							</div>
+						</div>
+					
+
+						<div class="mobile-overlay" id="mobileMenu">
+							   <div class="mobile-close" onclick="toggleMenu()">
+									<span></span>
+									<span></span>
+								</div>
+							<nav class="mobile-nav-list">
+								<a href="./index.html#quiz" onclick="toggleMenu()">Подбор дизайна</a>
+								<a href="./index.html#gallery" onclick="toggleMenu()">Галерея</a>
+								<a href="./index.html#contact" onclick="toggleMenu()">Контакты</a>
+								<a href="tel:+77770356267" class="mobile-call">Позвонить</a>
+							</nav>
+						</div>
+					</header>
+		
+		
+		
     <main>
         <section class="about-section">
             <div class="container">
@@ -258,6 +480,26 @@
             </div>
         </section>
     </main>
+
+<script>
+// Логика мобильного меню
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+function toggleMenu() {
+    menuToggle.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    
+    // Блокируем скролл при открытом меню
+    if (mobileMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+
+menuToggle.addEventListener('click', toggleMenu);
+</script>
 
     </body>
 </html>
