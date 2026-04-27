@@ -853,3 +853,31 @@ video.show { opacity: 1; }
 .elegant-link:hover {
   opacity: 0.7;
 }
+
+.social {
+    display: flex;
+    gap: 20px; /* Расстояние между иконками */
+    align-items: center;
+}
+
+.social a {
+    color: #333; /* Цвет иконок по умолчанию */
+    font-size: 24px; /* Размер иконок */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Эффект при наведении */
+.social a:hover {
+    color: #8d7a5f; /* Ваш акцентный цвет или цвет бренда */
+    transform: translateY(-3px); /* Легкий подъем вверх */
+}
+
+/* Специфические цвета (по желанию) */
+.social a .fa-instagram:hover {
+    color: #E1306C; /* Фирменный цвет Instagram */
+}
+
+.social a .fa-tiktok:hover {
+    color: #000000; /* Цвет TikTok */
+}
