@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О компании | Премиальные солнцезащитные решения</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #2c2c2c;
+            --accent-color: #8d7a5f; /* Золотисто-коричневый для премиального акцента */
+            --light-bg: #f9f9f9;
+            --text-main: #333;
+            --text-light: #666;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Секция О Компании (Чередование) --- */
+        .about-section {
+            padding: 80px 0;
+        }
+
+        .about-row {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-bottom: 100px;
+        }
+
+        .about-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        /* --- Секция Преимущества (Сетка) --- */
+        .benefits-section {
+            background-color: var(--light-bg);
+            padding: 80px 0;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .benefit-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 8px;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+
+        .benefit-card i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .benefit-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* --- Финальный призыв --- */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('your-background-image.jpg') center/cover;
+            color: #fff;
+        }
+
+        .cta-content h2 {
+            color: #fff;
+            font-size: 2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* --- Адаптивность --- */
+        @media (max-width: 992px) {
+            .about-row, .about-row:nth-child(even) {
+                flex-direction: column;
+                gap: 30px;
+                margin-bottom: 60px;
+            }
+            .about-image img {
+                height: 300px;
+            }
+            h1 { font-size: 2rem; }
+        }
+
+        @media (max-width: 600px) {
+            .about-section { padding: 40px 0; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .about-content p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <section class="about-section">
+            <div class="container">
+                <h1>О компании</h1>
+                
+                <div class="about-row">
+                    <div class="about-content">
+                        <h2>Миссия и философия</h2>
+                        <p>Мы специализируемся на создании премиальных солнцезащитных решений, которые становятся частью архитектуры интерьера. Наша задача — не просто закрыть окно, а подчеркнуть стиль пространства и повысить уровень комфорта.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="img/about-1.jpg" alt="Интерьер с нашими шторами">
+                    </div>
+                </div>
+
+                <div class="about-row">
+                    <div class="about-content">
+                        <h2>5 лет экспертизы</h2>
+                        <p>Более 5 лет опыта и свыше 5000 реализованных проектов сформировали нашу экспертизу и безупречную репутацию. Мы работаем с частными резиденциями, квартирами бизнес- и премиум-класса, а также коммерческими объектами, где важны детали, эстетика и надежность.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="img/about-2.jpg" alt="Пример реализованного проекта">
+                    </div>
+                </div>
+
+                <div class="about-row">
+                    <div class="about-content">
+                        <h2>Наш ассортимент</h2>
+                        <p>В нашем портфеле — рулонные шторы («день-ночь», дуэт, двойные системы), жалюзи, дизайнерские решения в формате Ди кей-тюль, плиссе (гофрированные) системы и москитные сетки любой сложности, включая раздвижные конструкции.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="img/about-3.jpg" alt="Виды продукции">
+                    </div>
+                </div>
+
+                <div class="about-row">
+                    <div class="about-content">
+                        <h2>Европейские материалы</h2>
+                        <p>Мы используем тщательно отобранные материалы из Турции и Европы: премиальные ткани из Германии и высококачественную фурнитуру польского производства. Это гарантирует идеальную посадку, долговечность и сохранение внешнего вида на протяжении многих лет.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="img/about-4.jpg" alt="Материалы и ткани">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="benefits-section">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 50px;">Наши преимущества</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <i class="fas fa-fingerprint"></i>
+                        <h3>Индивидуальный подход</h3>
+                        <p>Подбираем решения с учетом интерьера, освещения и задач клиента — от функциональности до эстетики.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-check-double"></i>
+                        <h3>Контроль качества</h3>
+                        <p>Работаем только с проверенными поставщиками. Каждое изделие проходит контроль перед установкой.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Скорость исполнения</h3>
+                        <p>Изготовление в срок от 1 до 2 дней благодаря собственному отлаженному производству.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Комплекс “под ключ”</h3>
+                        <p>Бесплатный замер, профессиональная консультация, аккуратная установка и сопровождение.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-ruler-combined"></i>
+                        <h3>Безупречная эстетика</h3>
+                        <p>Ровные линии, идеальная геометрия, аккуратный монтаж — то, что отличает премиальный результат.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <h3>Гибкий сервис</h3>
+                        <p>Работаем без выходных, подстраиваемся под удобное для вас время замера и монтажа.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Мы создаём атмосферу уюта, уединения и стиля, соответствующую вашему уровню жизни.</h2>
+                    <p>Выбирая нас, вы выбираете качество, которое видно с первого взгляда и ощущается каждый день.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    </body>
+</html>
