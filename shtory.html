@@ -259,6 +259,64 @@
         .call { background: #1E1E1E; }
         .wa { background: #0DB14B; }
         @media(min-width: 1024px) { .sticky { display: none; } }
+		
+		/* --- КОРРЕКТНЫЙ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ --- */
+
+/* Базовые ссылки */
+.lang-link {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    color: #1e1e1e !important; /* Принудительно задаем цвет */
+    opacity: 0.3; /* Неактивный - тусклый */
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+/* Активный язык (Выделенный) */
+.lang-link.active {
+    opacity: 1 !important;
+    color: #000 !important;
+    pointer-events: none;
+    border-bottom: 2px solid #000; /* Доп. выделение для наглядности */
+}
+
+/* Десктопная версия */
+.lang-switcher-desktop {
+    display: none; 
+}
+
+@media (min-width: 1024px) {
+    .lang-switcher-desktop {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-left: 20px;
+        border-left: 1px solid #eee;
+        padding-left: 15px;
+    }
+}
+
+/* Мобильная версия - БЕЗ ПОЛОМКИ АДАПТИВНОСТИ */
+.lang-switcher-mobile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 20px auto 0 auto;
+    padding: 15px 0;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    width: 90%; /* Не 100%, чтобы не вылезать за края */
+    box-sizing: border-box;
+}
+
+.lang-switcher-mobile .lang-link {
+    font-size: 18px;
+}
+		
+		
     </style>
 </head>
 <body>
@@ -274,6 +332,13 @@
 								<a href="./index.html">Басты бет</a>
 								<a href="./about.html">Біз жайлы</a>
 								<a href="./index.html#contact">Байланыс</a>
+								
+								<div class="lang-switcher-desktop">
+										<a href="shtory.html" class="lang-link active">KZ</a>
+										<span class="lang-sep">|</span>
+										<a href="shtoryru.html" class="lang-link">RU</a>
+									</div>
+								
 								<a href="tel:+77770356267" class="btn-call">Қоңырау шалу</a>
 							</nav>
 
@@ -294,6 +359,12 @@
 								<a href="./about.html" onclick="toggleMenu()">Біз жайлы</a>
 								<a href="./index.html#contact" onclick="toggleMenu()">Байланыс</a>
 								<a href="tel:+77770356267" class="mobile-call">Қоңырау шалу</a>
+								
+								<div class="lang-switcher-mobile">
+									<a href="shtory.html" class="lang-link active">KZ</a>
+									<a href="shtoryru.html" class="lang-link">RU</a>
+								</div>
+								
 							</nav>
 						</div>
 					</header>

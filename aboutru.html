@@ -374,6 +374,68 @@
             .benefits-grid { grid-template-columns: 1fr; }
             .about-content p { font-size: 1rem; }
         }
+		
+		
+		/* --- КОРРЕКТНЫЙ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ --- */
+
+/* Базовые ссылки */
+.lang-link {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    color: #1e1e1e !important; /* Принудительно задаем цвет */
+    opacity: 0.3; /* Неактивный - тусклый */
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+/* Активный язык (Выделенный) */
+.lang-link.active {
+    opacity: 1 !important;
+    color: #000 !important;
+    pointer-events: none;
+    border-bottom: 2px solid #000; /* Доп. выделение для наглядности */
+}
+
+/* Десктопная версия */
+.lang-switcher-desktop {
+    display: none; 
+}
+
+@media (min-width: 1024px) {
+    .lang-switcher-desktop {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-left: 20px;
+        border-left: 1px solid #eee;
+        padding-left: 15px;
+    }
+}
+
+/* Мобильная версия - БЕЗ ПОЛОМКИ АДАПТИВНОСТИ */
+.lang-switcher-mobile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 20px auto 0 auto;
+    padding: 15px 0;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    width: 90%; /* Не 100%, чтобы не вылезать за края */
+    box-sizing: border-box;
+}
+
+.lang-switcher-mobile .lang-link {
+    font-size: 18px;
+}
+		
+		
+		
+		
+		
     </style>
 </head>
 <body>
@@ -391,6 +453,12 @@
 								<a href="./indexru.html#contact">Контакты</a>
 								<a href="tel:+77770356267" class="btn-call">Позвонить</a>
 							</nav>
+							
+							<div class="lang-switcher-desktop">
+								<a href="about.html" class="lang-link">KZ</a>
+								<span class="lang-sep">|</span>
+								<a href="aboutru.html" class="lang-link active">RU</a>
+							</div>
 
 							<div class="menu-toggle" id="menuToggle">
 								<span></span>
@@ -409,6 +477,12 @@
 								<a href="./shtoryru.html" onclick="toggleMenu()">Каталог</a>
 								<a href="./indexru.html#contact" onclick="toggleMenu()">Контакты</a>
 								<a href="tel:+77770356267" class="mobile-call">Позвонить</a>
+								
+								<div class="lang-switcher-mobile">
+									<a href="about.html" class="lang-link">KZ</a>
+									<a href="aboutru.html" class="lang-link active">RU</a>
+								</div>
+								
 							</nav>
 						</div>
 					</header>
