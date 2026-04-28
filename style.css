@@ -883,22 +883,26 @@ video.show { opacity: 1; }
     opacity: 0.8; /* Чуть посветлеет */
 }
 
-//* Общие стили для ссылок языков */
+/* --- КОРРЕКТНЫЙ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ --- */
+
+/* Базовые ссылки */
 .lang-link {
     text-decoration: none;
     font-weight: 700;
     font-size: 14px;
-    color: #1e1e1e;
-    opacity: 0.4;
-    transition: opacity 0.3s ease;
+    color: #1e1e1e !important; /* Принудительно задаем цвет */
+    opacity: 0.3; /* Неактивный - тусклый */
+    transition: all 0.3s ease;
     padding: 5px 10px;
-    display: inline-block; /* Важно для корректных отступов */
+    display: inline-block;
 }
 
+/* Активный язык (Выделенный) */
 .lang-link.active {
-    opacity: 1;
+    opacity: 1 !important;
+    color: #000 !important;
     pointer-events: none;
-    color: #000;
+    border-bottom: 2px solid #000; /* Доп. выделение для наглядности */
 }
 
 /* Десктопная версия */
@@ -910,31 +914,24 @@ video.show { opacity: 1; }
     .lang-switcher-desktop {
         display: flex;
         align-items: center;
-        gap: 4px;
-        margin-left: 15px;
-        padding: 4px 8px;
-        border: 1px solid #eee;
-        border-radius: 20px;
-    }
-    .lang-sep {
-        color: #eee;
-        font-size: 12px;
+        gap: 5px;
+        margin-left: 20px;
+        border-left: 1px solid #eee;
+        padding-left: 15px;
     }
 }
 
-/* МОБИЛЬНАЯ ВЕРСИЯ - ИСПРАВЛЕНИЕ */
+/* Мобильная версия - БЕЗ ПОЛОМКИ АДАПТИВНОСТИ */
 .lang-switcher-mobile {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    margin-top: 30px;
+    gap: 30px;
+    margin: 20px auto 0 auto;
     padding: 15px 0;
     border-top: 1px solid rgba(0,0,0,0.05);
-    /* Убираем жесткую ширину 100%, чтобы не ломать контейнер */
-    width: auto; 
-    max-width: 100%;
+    width: 90%; /* Не 100%, чтобы не вылезать за края */
     box-sizing: border-box;
 }
 
