@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://issatayski.github.io/shtory/sitemap.xml
