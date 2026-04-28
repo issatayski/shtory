@@ -884,52 +884,60 @@ video.show { opacity: 1; }
 }
 
 /* Общие стили для ссылок языков */
+/* Базовые стили для языковых ссылок */
 .lang-link {
     text-decoration: none;
     font-weight: 700;
     font-size: 14px;
     color: #1e1e1e;
-    opacity: 0.4; /* "Смуглый" вид для неактивного */
+    opacity: 0.4;
     transition: opacity 0.3s ease;
+    padding: 2px 5px; /* Чтобы по ним было легче попасть пальцем */
 }
 
 .lang-link.active {
-    opacity: 1; /* Яркий вид для активного */
-    pointer-events: none; /* Отключаем клик по активному */
+    opacity: 1;
+    pointer-events: none;
+    color: #000; /* Можно добавить акцентный цвет для активного языка */
 }
 
-.lang-link:hover {
-    opacity: 0.8;
-}
-
-/* Стили для десктопа */
+/* Десктопная версия */
 .lang-switcher-desktop {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-left: 10px;
-    padding: 5px 10px;
-    border: 1px solid #eee; /* Небольшая рамка, чтобы выглядело как "значок" */
-    border-radius: 15px;
+    display: none; /* По умолчанию скрыто, покажем только на ПК */
 }
 
-.lang-sep {
-    color: #eee;
-    font-size: 12px;
+@media (min-width: 1024px) {
+    .lang-switcher-desktop {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 15px;
+        padding: 4px 8px;
+        border: 1px solid #eee;
+        border-radius: 20px;
+    }
+    
+    .lang-sep {
+        color: #eee;
+        font-size: 12px;
+        user-select: none;
+    }
 }
 
-/* Стили для мобильного меню */
+/* Мобильная версия */
 .lang-switcher-mobile {
     display: flex;
-    flex-direction: row; /* В один ряд */
-    gap: 30px;
-    margin-top: 20px; /* Отступ от пунктов меню */
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-    width: 100%;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
+    gap: 40px; /* Большое расстояние для удобства на смартфонах */
+    margin-top: auto; /* Прижимает к низу, если контейнер позволяет */
+    padding: 20px 0;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .lang-switcher-mobile .lang-link {
-    font-size: 20px; /* На мобилках делаем крупнее для удобства */
+    font-size: 18px; /* Крупный текст для мобильного меню */
 }
