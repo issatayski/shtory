@@ -883,8 +883,7 @@ video.show { opacity: 1; }
     opacity: 0.8; /* Чуть посветлеет */
 }
 
-/* Общие стили для ссылок языков */
-/* Базовые стили для языковых ссылок */
+//* Общие стили для ссылок языков */
 .lang-link {
     text-decoration: none;
     font-weight: 700;
@@ -892,18 +891,19 @@ video.show { opacity: 1; }
     color: #1e1e1e;
     opacity: 0.4;
     transition: opacity 0.3s ease;
-    padding: 2px 5px; /* Чтобы по ним было легче попасть пальцем */
+    padding: 5px 10px;
+    display: inline-block; /* Важно для корректных отступов */
 }
 
 .lang-link.active {
     opacity: 1;
     pointer-events: none;
-    color: #000; /* Можно добавить акцентный цвет для активного языка */
+    color: #000;
 }
 
 /* Десктопная версия */
 .lang-switcher-desktop {
-    display: none; /* По умолчанию скрыто, покажем только на ПК */
+    display: none; 
 }
 
 @media (min-width: 1024px) {
@@ -916,28 +916,28 @@ video.show { opacity: 1; }
         border: 1px solid #eee;
         border-radius: 20px;
     }
-    
     .lang-sep {
         color: #eee;
         font-size: 12px;
-        user-select: none;
     }
 }
 
-/* Мобильная версия */
+/* МОБИЛЬНАЯ ВЕРСИЯ - ИСПРАВЛЕНИЕ */
 .lang-switcher-mobile {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 40px; /* Большое расстояние для удобства на смартфонах */
-    margin-top: auto; /* Прижимает к низу, если контейнер позволяет */
-    padding: 20px 0;
+    gap: 20px;
+    margin-top: 30px;
+    padding: 15px 0;
     border-top: 1px solid rgba(0,0,0,0.05);
-    width: 100%;
+    /* Убираем жесткую ширину 100%, чтобы не ломать контейнер */
+    width: auto; 
+    max-width: 100%;
     box-sizing: border-box;
 }
 
 .lang-switcher-mobile .lang-link {
-    font-size: 18px; /* Крупный текст для мобильного меню */
+    font-size: 18px;
 }
